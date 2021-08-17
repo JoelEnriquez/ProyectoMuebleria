@@ -38,7 +38,6 @@ public class CargaArchivo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Estoy aca arriba");
         Part part = request.getPart("archivoTXT");
         InputStream inputStream = part.getInputStream();
         
