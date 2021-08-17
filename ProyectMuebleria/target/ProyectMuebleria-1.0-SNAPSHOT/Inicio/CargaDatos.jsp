@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group col-md-4">
 
-                            <input class="form-control" type="file"  name="archivoXML" id="archivoXML" placeholder="Elija el Archivo" accept=".xml" required>
+                            <input class="form-control" type="file"  name="archivoTXT" id="archivoTXT" placeholder="Elija el Archivo" accept=".txt" required>
                         </div>
                     </div>
                     

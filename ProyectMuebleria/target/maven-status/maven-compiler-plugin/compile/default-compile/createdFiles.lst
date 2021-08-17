@@ -1,3 +1,5 @@
+ControladoresInicio/CargaArchivo.class
+ModelosInicio/LecturaArchivo.class
 Lectura/Lector.class
 DBConnection/Conexion.class
 ModelosInicio/VerificarDatos.class

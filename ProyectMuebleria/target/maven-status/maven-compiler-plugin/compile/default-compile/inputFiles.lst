@@ -1,4 +1,6 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/DBConnection/Conexion.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModelosInicio/VerificarDatos.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/ComprobarDatos.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/CargaArchivo.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/Lector.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModelosInicio/LecturaArchivo.java

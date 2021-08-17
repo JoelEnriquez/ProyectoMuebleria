@@ -6,7 +6,7 @@
 package Lectura;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -15,10 +15,10 @@ import java.io.InputStreamReader;
  */
 public class Lector {
 
-    public void leerTXT(String pathArchivo) {
+    public void leerTXT(InputStream inputStream) {
 
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(pathArchivo), "utf-8"));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
 
             String sCadena;
             while ((sCadena = bf.readLine()) != null) {
