@@ -25,6 +25,7 @@ public class Lector {
                 System.out.println(sCadena);
             }
         } catch (Exception e) {
+            e.printStackTrace(System.out);
         }
     }
 }

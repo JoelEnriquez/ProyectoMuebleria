@@ -43,7 +43,7 @@ public class CargaArchivo extends HttpServlet {
         InputStream inputStream = part.getInputStream();
         
         Lector lector = new Lector();
-        lector.leerTXT(inputStream);   
+        lector.leerTXT(inputStream);
     }
 
     
