@@ -88,7 +88,7 @@ public class Lector {
             LecturaUsuario lecturaUsuario = new LecturaUsuario(usuarios,listaErrores);
             lecturaUsuario.analizarUsuario();
             
-            LecturaCliente lecturaCliente = new LecturaCliente(clientes);
+            LecturaCliente lecturaCliente = new LecturaCliente(clientes,listaErrores);
             lecturaCliente.analizarCliente();
             
             LecturaPieza lecturaPieza = new LecturaPieza(piezas);

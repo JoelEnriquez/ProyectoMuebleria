@@ -9,6 +9,7 @@ import DBConnection.Conexion;
 import EntidadesPersona.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -18,30 +19,38 @@ import java.util.ArrayList;
 public class LecturaCliente {
 
     private Connection conexion = Conexion.getConexion();
-    private ArrayList<String[]> datosClientes;
+    private ArrayList<DatosLinea> datosClientes;
+    private ArrayList<Error> listaErrores;
 
-    public LecturaCliente(ArrayList<String[]> datosClientes) {
+    public LecturaCliente(ArrayList<DatosLinea> datosClientes, ArrayList<Error> listaErrores) {
         this.datosClientes = datosClientes;
+        this.listaErrores = listaErrores;
     }
 
     public void analizarCliente() {
-        for (String[] datosCliente : datosClientes) {
-            if (datosCliente.length == 3 || datosCliente.length == 5) {
-                String nombre = datosCliente[0];
-                String NIT = datosCliente[1];
-                String direccion = datosCliente[2];
-                
-                if (datosCliente.length == 5) {
-                    String municipio = datosCliente[3];
-                    String departamento = datosCliente[4];
-                    
-                    Cliente clienteEspecifico = new Cliente(NIT, nombre, direccion, municipio, departamento);
-                    agregarClienteEspecifico(clienteEspecifico);
+        for (DatosLinea datosCliente : datosClientes) {
+            if (datosCliente.getDatos().length == 3 || datosCliente.getDatos().length == 5) {
+                String nombre = datosCliente.getDatos()[0];
+                String NIT = datosCliente.getDatos()[1];
+                String direccion = datosCliente.getDatos()[2];
+
+                if (NIT.contains("-")) {
+                    listaErrores.add(new Error(datosCliente.getNumLinea(), "Formato", "El NIT contiene guiones"));
+                } else{
+                    if (datosCliente.getDatos().length == 5) {
+                        String municipio = datosCliente.getDatos()[3];
+                        String departamento = datosCliente.getDatos()[4];
+
+                        Cliente clienteEspecifico = new Cliente(NIT, nombre, direccion, municipio, departamento);
+                        agregarClienteEspecifico(clienteEspecifico);
+                    } else {
+                        Cliente cliente = new Cliente(NIT, nombre, direccion);
+                        agregarCliente(cliente);
+                    }
                 }
-                else{
-                    Cliente cliente = new Cliente(NIT, nombre, direccion);
-                    agregarCliente(cliente);
-                }
+
+            } else {
+                listaErrores.add(new Error(datosCliente.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
         }
     }
@@ -55,12 +64,18 @@ public class LecturaCliente {
             ps.setString(3, nuevoCliente.getDireccion());
 
             ps.execute();
-        } catch (Exception e) {
-            e.getMessage();
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                //Llave Primaria Duplicada
+                listaErrores.add(new Error(0, "Logico", "Se duplica la llave primaria de cliente"));
+            }
+            else{
+                listaErrores.add(new Error(0, "Logico", "No se ha podido ingresar el usuario correctamente"));
+            }
             e.printStackTrace(System.out);
         }
     }
-    
+
     private void agregarClienteEspecifico(Cliente nuevoCliente) {
         String query = "INSERT INTO Cliente VALUES (?,?,?,?,?)";
 
@@ -72,8 +87,14 @@ public class LecturaCliente {
             ps.setString(5, nuevoCliente.getDepartamento());
 
             ps.execute();
-        } catch (Exception e) {
-            e.getMessage();
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                //Llave Primaria Duplicada
+                listaErrores.add(new Error(0, "Logico", "Se duplica la llave primaria de cliente"));
+            }
+            else{
+                listaErrores.add(new Error(0, "Logico", "No se ha podido ingresar el usuario correctamente"));
+            }
             e.printStackTrace(System.out);
         }
     }
