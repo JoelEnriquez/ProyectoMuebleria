@@ -20,28 +20,37 @@ import java.util.ArrayList;
 public class LecturaPieza {
 
     private Connection conexion = Conexion.getConexion();
-    private ArrayList<String[]> datosPiezas;
+    private ArrayList<DatosLinea> datosPiezas;
+    private ArrayList<Error> listaErrores;
 
-    public LecturaPieza(ArrayList<String[]> datosPiezas) {
+    public LecturaPieza(ArrayList<DatosLinea> datosPiezas, ArrayList<Error> listaErrores) {
         this.datosPiezas = datosPiezas;
+        this.listaErrores = listaErrores;
     }
 
     public void analizarPieza() {
-        for (String[] datosPieza : datosPiezas) {
-            if (datosPieza.length == 2) {
-                String nombre = datosPieza[0];
-                Double precio = Double.parseDouble(datosPieza[1]);
-
-                if (existenciaPieza(nombre) == 0) {
-                    //No existe la Pieza
-                    Pieza nuevaPieza = new Pieza(nombre, 1);
-                    agregarPieza(nuevaPieza);
-                } else {
-                    //Aumentar Existencia
-                    aumentarExistencia(nombre);
+        for (DatosLinea datosPieza : datosPiezas) {
+            if (datosPieza.getDatos().length == 2) {
+                String nombre = datosPieza.getDatos()[0];
+                Double precio;
+                try {
+                    precio = Double.parseDouble(datosPieza.getDatos()[1]);
+                    if (existenciaPieza(nombre) == 0) {
+                        //No existe la Pieza
+                        Pieza nuevaPieza = new Pieza(nombre, 1);
+                        agregarPieza(nuevaPieza);
+                    } else {
+                        //Aumentar Existencia
+                        aumentarExistencia(nombre);
+                    }
+                    AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombre);
+                    agregarAsignacion(nuevaAsignacion);
+                } catch (NumberFormatException e) {
+                    listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay un formato apropiado del precio"));
                 }
-                AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombre);
-                agregarAsignacion(nuevaAsignacion);
+            }
+            else{
+                listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
         }
     }

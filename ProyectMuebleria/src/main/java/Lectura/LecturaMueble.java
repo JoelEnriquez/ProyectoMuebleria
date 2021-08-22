@@ -19,9 +19,11 @@ public class LecturaMueble {
     
     private Connection conexion = Conexion.getConexion();
     private ArrayList<String[]> datosMuebles;
+    private ArrayList<Error> listaErrores;
 
-    public LecturaMueble(ArrayList<String[]> datosMuebles) {
+    public LecturaMueble(ArrayList<String[]> datosMuebles, ArrayList<Error> listaErrores) {
         this.datosMuebles = datosMuebles;
+        this.listaErrores = listaErrores;
     }
     
     public void analizarMueble() {
