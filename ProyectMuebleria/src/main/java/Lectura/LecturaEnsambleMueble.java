@@ -8,10 +8,11 @@ package Lectura;
 import DBConnection.Conexion;
 import EntidadesMuebleria.EnsambleMueble;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -29,15 +30,18 @@ public class LecturaEnsambleMueble {
     public void analizarEnsambleMueble() {
         for (String[] datosEnsambleMueble : datosEnsambleMuebles) {
             if (datosEnsambleMueble.length == 4) {
-                Date fechaEnsamble = Date.valueOf(datosEnsambleMueble[0]);
+                
+                String fechaEnsamble = datosEnsambleMueble[0]; //dd/mm/yy
+                Date fecha =null; //VolearFecha();
+                
                 String nombreUsuario = datosEnsambleMueble[1];
                 String nombreMueble = datosEnsambleMueble[2];
-                
-                Double precioEnsamble = precioVentaMueble(nombreMueble)*0.75;
+
+                Double precioEnsamble = precioVentaMueble(nombreMueble) * 0.75;
                 EnsambleMueble ensambleMueble = new EnsambleMueble(fechaEnsamble, precioEnsamble, nombreUsuario, nombreMueble);
                 agregarEnsambleMueble(ensambleMueble);
             }
-                
+
         }
     }
 
@@ -56,13 +60,13 @@ public class LecturaEnsambleMueble {
             e.printStackTrace(System.out);
         }
     }
-    
-    private Double precioVentaMueble(String nombreMueble){
+
+    private Double precioVentaMueble(String nombreMueble) {
         String query = "SELECT precio FROM Mueble WHERE nombre = ?";
-        
-        try (PreparedStatement ps = conexion.prepareStatement(query);){
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query);) {
             ps.setString(1, nombreMueble);
-            try(ResultSet rs = ps.executeQuery()){
+            try ( ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getDouble(1);
                 }
@@ -70,6 +74,14 @@ public class LecturaEnsambleMueble {
         } catch (Exception e) {
         }
         return null;
+
+    }
+    
+    private Date voltearFecha(String fecha){
         
+        for (char charFecha : fecha.toCharArray()) {
+            
+        }
+        //SimpleDateFormat
     }
 }

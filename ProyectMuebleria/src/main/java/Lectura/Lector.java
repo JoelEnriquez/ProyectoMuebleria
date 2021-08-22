@@ -16,19 +16,22 @@ import java.util.ArrayList;
  */
 public class Lector {
 
+    private ArrayList<Error> listaErrores; 
+    
     public void leerTXT(InputStream inputStream) {
-
+        
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
 
             String linea;
             int lineaAnalizada = 0; //Apoyo para indicar la linea del error
-            ArrayList<String[]> usuarios = new ArrayList<>();
-            ArrayList<String[]> piezas = new ArrayList<>();
-            ArrayList<String[]> muebles = new ArrayList<>();
-            ArrayList<String[]> ensamblePiezas = new ArrayList<>();
-            ArrayList<String[]> ensamblarMueble = new ArrayList<>();
-            ArrayList<String[]> clientes = new ArrayList<>();
+            ArrayList<DatosLinea> usuarios = new ArrayList<>();
+            ArrayList<DatosLinea> piezas = new ArrayList<>();
+            ArrayList<DatosLinea> muebles = new ArrayList<>();
+            ArrayList<DatosLinea> ensamblePiezas = new ArrayList<>();
+            ArrayList<DatosLinea> ensamblarMueble = new ArrayList<>();
+            ArrayList<DatosLinea> clientes = new ArrayList<>();
+            listaErrores = new ArrayList<>();
 
             while ((linea = br.readLine()) != null) {
                 lineaAnalizada++;
@@ -36,53 +39,53 @@ public class Lector {
                 int ultimoParentesis = 0;
 
                 if (linea.startsWith("USUARIO")) {
-                    if (comprobacionParentesis(linea, 7)) {
+                    if (comprobacionParentesis(linea, 7, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contUsuario = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        usuarios.add(contUsuario);
+                        usuarios.add(new DatosLinea(contUsuario, lineaAnalizada));
                     }
                 } else if (linea.startsWith("PIEZA")) {
-                    if (comprobacionParentesis(linea, 5)) {
+                    if (comprobacionParentesis(linea, 5, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contPieza = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        piezas.add(contPieza);
+                        piezas.add(new DatosLinea(contPieza, lineaAnalizada));
                     }
                 } else if (linea.startsWith("MUEBLE")) {
-                    if (comprobacionParentesis(linea, 6)) {
+                    if (comprobacionParentesis(linea, 6, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contMueble = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        muebles.add(contMueble);
+                        muebles.add(new DatosLinea(contMueble, lineaAnalizada));
                     }
                 } else if (linea.startsWith("ENSAMBLE_PIEZAS")) {
-                    if (comprobacionParentesis(linea, 15)) {
+                    if (comprobacionParentesis(linea, 15, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contEnsamPieza = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        ensamblePiezas.add(contEnsamPieza);
+                        ensamblePiezas.add(new DatosLinea(contEnsamPieza, lineaAnalizada));
                     }
                 } else if (linea.startsWith("ENSAMBLAR_MUEBLE")) {
-                    if (comprobacionParentesis(linea, 16)) {
+                    if (comprobacionParentesis(linea, 16, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contEnsamMueble = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        ensamblarMueble.add(contEnsamMueble);
+                        ensamblarMueble.add(new DatosLinea(contEnsamMueble, lineaAnalizada));
                     }
                 } else if (linea.startsWith("CLIENTE")) {
-                    if (comprobacionParentesis(linea, 7)) {
+                    if (comprobacionParentesis(linea, 7, lineaAnalizada)) {
                         primerParentesis = posicionPrimerParentesis(linea);
                         ultimoParentesis = posicionUltimoParentesis(linea);
                         String[] contCliente = extraerContenido(primerParentesis, ultimoParentesis, linea);
-                        clientes.add(contCliente);
+                        clientes.add(new DatosLinea(contCliente, lineaAnalizada));
                     }
                 } else {
-                    //No inicia correctamente
+                    listaErrores.add(new Error(lineaAnalizada, "Formato", "La linea no inicia correctamente"));
                 }
             }
             
-            LecturaUsuario lecturaUsuario = new LecturaUsuario(usuarios);
+            LecturaUsuario lecturaUsuario = new LecturaUsuario(usuarios,listaErrores);
             lecturaUsuario.analizarUsuario();
             
             LecturaCliente lecturaCliente = new LecturaCliente(clientes);
@@ -111,17 +114,19 @@ public class Lector {
      * @param primerParentesis Varia segun la palabra inicial
      * @return 
      */
-    private boolean comprobacionParentesis(String linea, int primerParentesis) {
+    private boolean comprobacionParentesis(String linea, int primerParentesis, int lineaAnalizada) {
         if (empiezaParentesis(linea, primerParentesis)) {
             if (terminaParentesis(linea)) {
                 return true;
             }
             else{
                 //No contiene parentesis cierre
+                listaErrores.add(new Error(lineaAnalizada, "Formato", "No existe parentesis de cierre"));
                 return false;
             }
         }
         //No contiene parentesis de apertura
+        listaErrores.add(new Error(lineaAnalizada, "Formato", "No existe parentesis de apertura"));
         return false;
     }
 
