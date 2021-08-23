@@ -5,6 +5,7 @@
  */
 package Lectura;
 
+import Error.Error;
 import DBConnection.Conexion;
 import EntidadesMuebleria.AsignacionPrecio;
 import EntidadesMuebleria.Pieza;
@@ -38,15 +39,17 @@ public class LecturaPieza {
                     if (existenciaPieza(nombre) == 0) {
                         //No existe la Pieza
                         Pieza nuevaPieza = new Pieza(nombre, 1);
-                        agregarPieza(nuevaPieza);
+                        agregarPieza(nuevaPieza, datosPieza.getNumLinea());
                     } else {
                         //Aumentar Existencia
                         aumentarExistencia(nombre);
                     }
                     AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombre);
-                    agregarAsignacion(nuevaAsignacion);
+                    agregarAsignacion(nuevaAsignacion,datosPieza.getNumLinea());
                 } catch (NumberFormatException e) {
                     listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay un formato apropiado del precio"));
+                } catch (NullPointerException nullPointer){
+                    listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay ningun precio especificado"));
                 }
             }
             else{
@@ -55,7 +58,7 @@ public class LecturaPieza {
         }
     }
 
-    private void agregarPieza(Pieza nuevaPieza) {
+    private void agregarPieza(Pieza nuevaPieza, int numeroLinea) {
         String query = "INSERT INTO Pieza VALUES (?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -65,10 +68,11 @@ public class LecturaPieza {
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace(System.out);
+            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido agregar la pieza"));
         }
     }
 
-    private void agregarAsignacion(AsignacionPrecio nuevaAsignacion) {
+    private void agregarAsignacion(AsignacionPrecio nuevaAsignacion, int numeroLinea) {
         String query = "INSERT INTO Asignacion_Precio (precio,tipo_pieza,utilizada) VALUES (?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -79,6 +83,7 @@ public class LecturaPieza {
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace(System.out);
+            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido generar la asignacion"));
         }
     }
 

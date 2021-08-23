@@ -5,6 +5,7 @@
  */
 package Lectura;
 
+import Error.Error;
 import DBConnection.Conexion;
 import EntidadesMuebleria.Mueble;
 import java.sql.Connection;
@@ -16,29 +17,35 @@ import java.util.ArrayList;
  * @author joel
  */
 public class LecturaMueble {
-    
+
     private Connection conexion = Conexion.getConexion();
-    private ArrayList<String[]> datosMuebles;
+    private ArrayList<DatosLinea> datosMuebles;
     private ArrayList<Error> listaErrores;
 
-    public LecturaMueble(ArrayList<String[]> datosMuebles, ArrayList<Error> listaErrores) {
+    public LecturaMueble(ArrayList<DatosLinea> datosMuebles, ArrayList<Error> listaErrores) {
         this.datosMuebles = datosMuebles;
         this.listaErrores = listaErrores;
     }
-    
-    public void analizarMueble() {
-        for (String[] datosMueble : datosMuebles) {
-            if (datosMueble.length == 2) {
-                String nombre = datosMueble[0];
-                Double precio = Double.parseDouble(datosMueble[1]);             
 
-                Mueble nuevoMueble = new Mueble(nombre, precio);
-                agregarMueble(nuevoMueble);
+    public void analizarMueble() {
+        for (DatosLinea datosMueble : datosMuebles) {
+            if (datosMueble.getDatos().length == 2) {
+                String nombre = datosMueble.getDatos()[0];
+                Double precio;
+                try {
+                    precio = Double.parseDouble(datosMueble.getDatos()[1]);
+                    Mueble nuevoMueble = new Mueble(nombre, precio);
+                    agregarMueble(nuevoMueble, datosMueble.getNumLinea());
+                } catch (NumberFormatException e) {
+                    listaErrores.add(new Error(datosMueble.getNumLinea(), "Formato", "No hay un formato apropiado del precio"));
+                }
+            } else {
+                listaErrores.add(new Error(datosMueble.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
         }
     }
 
-    private void agregarMueble(Mueble nuevoMueble) {
+    private void agregarMueble(Mueble nuevoMueble, int numeroLinea) {
         String query = "INSERT INTO Mueble VALUES (?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -49,7 +56,8 @@ public class LecturaMueble {
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace(System.out);
+            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido crear el mueble"));
         }
     }
-    
+
 }

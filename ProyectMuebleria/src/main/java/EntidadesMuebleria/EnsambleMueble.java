@@ -5,7 +5,8 @@
  */
 package EntidadesMuebleria;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -14,12 +15,12 @@ import java.sql.Date;
 public class EnsambleMueble {
     
     private int id;
-    private Date fechaEnsamble;
+    private LocalDate fechaEnsamble;
     private Double precioEnsamble;
     private String nombreUsuario;
     private String nombreMueble;
 
-    public EnsambleMueble(int id, Date fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble) {
+    public EnsambleMueble(int id, LocalDate fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble) {
         this.id = id;
         this.fechaEnsamble = fechaEnsamble;
         this.precioEnsamble = precioEnsamble;
@@ -27,7 +28,7 @@ public class EnsambleMueble {
         this.nombreMueble = nombreMueble;
     }
     
-    public EnsambleMueble(Date fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble) {
+    public EnsambleMueble(LocalDate fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble) {
         this.fechaEnsamble = fechaEnsamble;
         this.precioEnsamble = precioEnsamble;
         this.nombreUsuario = nombreUsuario;
@@ -42,11 +43,11 @@ public class EnsambleMueble {
         this.id = id;
     }
 
-    public Date getFechaEnsamble() {
+    public LocalDate getFechaEnsamble() {
         return fechaEnsamble;
     }
 
-    public void setFechaEnsamble(Date fechaEnsamble) {
+    public void setFechaEnsamble(LocalDate fechaEnsamble) {
         this.fechaEnsamble = fechaEnsamble;
     }
 

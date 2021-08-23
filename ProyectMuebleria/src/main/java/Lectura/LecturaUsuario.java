@@ -5,6 +5,7 @@
  */
 package Lectura;
 
+import Error.Error;
 import DBConnection.Conexion;
 import EntidadesPersona.Usuario;
 import java.sql.Connection;

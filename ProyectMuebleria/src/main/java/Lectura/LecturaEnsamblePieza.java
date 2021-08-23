@@ -5,6 +5,7 @@
  */
 package Lectura;
 
+import Error.Error;
 import DBConnection.Conexion;
 import EntidadesMuebleria.EnsamblePieza;
 import java.sql.Connection;
@@ -18,26 +19,35 @@ import java.util.ArrayList;
 public class LecturaEnsamblePieza {
 
     private Connection conexion = Conexion.getConexion();
-    private ArrayList<String[]> datosEnsamblePiezas;
+    private ArrayList<DatosLinea> datosEnsamblePiezas;
+    private ArrayList<Error> listaErrores;
 
-    public LecturaEnsamblePieza(ArrayList<String[]> datosEnsamblePiezas) {
+    public LecturaEnsamblePieza(ArrayList<DatosLinea> datosEnsamblePiezas, ArrayList<Error> listaErrores) {
         this.datosEnsamblePiezas = datosEnsamblePiezas;
+        this.listaErrores = listaErrores;
     }
 
     public void analizarEnsamblePieza() {
-        for (String[] datosEnsamblePieza : datosEnsamblePiezas) {
-            if (datosEnsamblePieza.length == 3) {
-                String nombreMueble = datosEnsamblePieza[0];
-                String nombrePieza = datosEnsamblePieza[1];
-                int cantidadPieza = Integer.parseInt(datosEnsamblePieza[2]);
-                
-                EnsamblePieza nuevoEnsamblePieza = new EnsamblePieza(nombreMueble, nombrePieza, cantidadPieza);
-                agregarEnsamblePieza(nuevoEnsamblePieza);
+        for (DatosLinea datosEnsamblePieza : datosEnsamblePiezas) {
+            if (datosEnsamblePieza.getDatos().length == 3) {
+                try {
+                    String nombreMueble = datosEnsamblePieza.getDatos()[0];
+                    String nombrePieza = datosEnsamblePieza.getDatos()[1];
+                    int cantidadPieza = Integer.parseInt(datosEnsamblePieza.getDatos()[2]);
+                    EnsamblePieza nuevoEnsamblePieza = new EnsamblePieza(nombreMueble, nombrePieza, cantidadPieza);
+                    agregarEnsamblePieza(nuevoEnsamblePieza, datosEnsamblePieza.getNumLinea());
+                } catch (NumberFormatException e) {
+                    listaErrores.add(new Error(datosEnsamblePieza.getNumLinea(), "Formato", "No hay un formato apropiado de la cantidad"));
+                } catch (NullPointerException nullP){
+                    listaErrores.add(new Error(datosEnsamblePieza.getNumLinea(), "Formato", "Alguno de los datos venian vacios"));
+                }
+            } else {
+                listaErrores.add(new Error(datosEnsamblePieza.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
         }
     }
 
-    private void agregarEnsamblePieza(EnsamblePieza nuevoEnsamblePieza) {
+    private void agregarEnsamblePieza(EnsamblePieza nuevoEnsamblePieza, int numeroLinea) {
         String query = "INSERT INTO Ensamble_Pieza VALUES (?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -47,7 +57,7 @@ public class LecturaEnsamblePieza {
 
             ps.execute();
         } catch (Exception e) {
-            e.getMessage();
+            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
             e.printStackTrace(System.out);
         }
     }

@@ -5,6 +5,7 @@
  */
 package Lectura;
 
+import Error.Error;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -91,16 +92,16 @@ public class Lector {
             LecturaCliente lecturaCliente = new LecturaCliente(clientes,listaErrores);
             lecturaCliente.analizarCliente();
             
-            LecturaPieza lecturaPieza = new LecturaPieza(piezas);
+            LecturaPieza lecturaPieza = new LecturaPieza(piezas,listaErrores);
             lecturaPieza.analizarPieza();
             
-            LecturaMueble lecturaMueble = new LecturaMueble(muebles);
+            LecturaMueble lecturaMueble = new LecturaMueble(muebles,listaErrores);
             lecturaMueble.analizarMueble();
             
-            LecturaEnsamblePieza lecturaEnsamblePieza = new LecturaEnsamblePieza(ensamblePiezas);
+            LecturaEnsamblePieza lecturaEnsamblePieza = new LecturaEnsamblePieza(ensamblePiezas,listaErrores);
             lecturaEnsamblePieza.analizarEnsamblePieza();
             
-            LecturaEnsambleMueble lecturaEnsambleMueble = new LecturaEnsambleMueble(ensamblarMueble);
+            LecturaEnsambleMueble lecturaEnsambleMueble = new LecturaEnsambleMueble(ensamblarMueble,listaErrores);
             lecturaEnsambleMueble.analizarEnsambleMueble();
 
         } catch (Exception e) {

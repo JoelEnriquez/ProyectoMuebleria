@@ -6,40 +6,74 @@
 package Lectura;
 
 import DBConnection.Conexion;
+import Error.Error;
 import EntidadesMuebleria.EnsambleMueble;
+import EntidadesMuebleria.EnsamblePieza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
+import java.sql.SQLException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
-/**
- *
- * @author joel
- */
 public class LecturaEnsambleMueble {
 
     private Connection conexion = Conexion.getConexion();
-    private ArrayList<String[]> datosEnsambleMuebles;
+    private ArrayList<DatosLinea> datosEnsambleMuebles;
+    private ArrayList<Error> listaErrores;
 
-    public LecturaEnsambleMueble(ArrayList<String[]> datosEnsambleMuebles) {
+    public LecturaEnsambleMueble(ArrayList<DatosLinea> datosEnsambleMuebles, ArrayList<Error> listaErrores) {
         this.datosEnsambleMuebles = datosEnsambleMuebles;
+        this.listaErrores = listaErrores;
     }
 
-    public void analizarEnsambleMueble() {
-        for (String[] datosEnsambleMueble : datosEnsambleMuebles) {
-            if (datosEnsambleMueble.length == 4) {
-                
-                String fechaEnsamble = datosEnsambleMueble[0]; //dd/mm/yy
-                Date fecha =null; //VolearFecha();
-                
-                String nombreUsuario = datosEnsambleMueble[1];
-                String nombreMueble = datosEnsambleMueble[2];
+    public void analizarEnsambleMueble() throws SQLException {
+        for (DatosLinea datosEnsambleMueble : datosEnsambleMuebles) {
+            if (datosEnsambleMueble.getDatos().length == 4) {
 
-                Double precioEnsamble = precioVentaMueble(nombreMueble) * 0.75;
-                EnsambleMueble ensambleMueble = new EnsambleMueble(fechaEnsamble, precioEnsamble, nombreUsuario, nombreMueble);
-                agregarEnsambleMueble(ensambleMueble);
+                String fechaEnsamble = datosEnsambleMueble.getDatos()[0]; //dd/MM/yyyy
+                String nombreUsuario = datosEnsambleMueble.getDatos()[1];
+                String nombreMueble = datosEnsambleMueble.getDatos()[2];
+                LocalDate fechaEnsamblado;
+                Double precioEnsamble = null;
+                try {
+                    fechaEnsamblado = cambioFormato(fechaEnsamble); //yyyy/MM/dd
+                    try {
+                        //Calcular el precio de ensamblaje
+                        boolean piezasSuficientes = true;
+                        ArrayList<EnsamblePieza> recetaEnsamble = recetaPorMueble(nombreMueble); //Consulta Receta por nombre mueble
+
+                        if (recetaEnsamble.isEmpty()) {
+                            listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Formato", "No hay receta disponible para el ensamble"));
+                        } else {
+                            conexion.setAutoCommit(false);
+                            while (piezasSuficientes) {
+                                for (EnsamblePieza ensamblePieza : recetaEnsamble) {
+                                    if (ensamblePieza.getCantidadPieza() > disponibilidadPieza(ensamblePieza.getNombrePieza())) {
+                                        piezasSuficientes = false;
+                                        listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Logico", "No hay piezas disponibles de " + ensamblePieza.getNombrePieza()));
+                                        conexion.rollback();
+                                    } else {
+                                        precioEnsamble += costoEnsamblePieza(ensamblePieza.getNombrePieza(), ensamblePieza.getCantidadPieza());
+                                    }
+                                }
+                            }
+                            EnsambleMueble nuevoEnsambleMueble = new EnsambleMueble(fechaEnsamblado, precioEnsamble, nombreUsuario, nombreMueble);
+                            agregarEnsambleMueble(nuevoEnsambleMueble);
+                        }
+                    } catch (Exception e) {
+                        conexion.rollback();
+                    } finally {
+                        conexion.setAutoCommit(true);
+                    }
+                } catch (IllegalArgumentException | DateTimeException e) {
+                    listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Formato", "La fecha no venia con un formato correcto"));
+                }
+
+            } else {
+                listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
 
         }
@@ -49,7 +83,7 @@ public class LecturaEnsambleMueble {
         String query = "INSERT INTO Ensamble_Mueble (fecha_ensamble,precio_ensamble,nombre_usuario,nombre_mueble) VALUES (?,?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
-            ps.setDate(1, ensambleMueble.getFechaEnsamble());
+            ps.setDate(1, java.sql.Date.valueOf(ensambleMueble.getFechaEnsamble()));
             ps.setDouble(2, ensambleMueble.getPrecioEnsamble());
             ps.setString(3, ensambleMueble.getNombreUsuario());
             ps.setString(4, ensambleMueble.getNombreMueble());
@@ -61,27 +95,75 @@ public class LecturaEnsambleMueble {
         }
     }
 
-    private Double precioVentaMueble(String nombreMueble) {
-        String query = "SELECT precio FROM Mueble WHERE nombre = ?";
+    private LocalDate cambioFormato(String fecha) {
+        return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 
-        try ( PreparedStatement ps = conexion.prepareStatement(query);) {
+    private ArrayList<EnsamblePieza> recetaPorMueble(String nombreMueble) {
+        String query = "SELECT tipo_pieza, cantidad_pieza FROM Ensamble_Pieza WHERE nombre_mueble=?";
+        ArrayList<EnsamblePieza> recetaPiezas = new ArrayList<>();
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setString(1, nombreMueble);
+
             try ( ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble(1);
+                while (rs.next()) {
+                    recetaPiezas.add(new EnsamblePieza(
+                            nombreMueble,
+                            rs.getString("tipo_pieza"),
+                            rs.getInt("cantidad_pieza")));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
         }
-        return null;
-
+        return recetaPiezas;
     }
-    
-    private Date voltearFecha(String fecha){
-        
-        for (char charFecha : fecha.toCharArray()) {
-            
+
+    private int disponibilidadPieza(String tipoPieza) {
+        String query = "SELECT count(*) FROM Asignacion_Precio where tipo_pieza = ? AND utilizada = 0";
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setString(1, tipoPieza);
+
+            try ( ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
         }
-        //SimpleDateFormat
+        return 0;
+    }
+
+    private Double costoEnsamblePieza(String tipoPieza, int cantidadPiezas) {
+        String query = "select id, precio FROM Asignacion_Precio where tipo_pieza = ? AND utilizada = 0 LIMIT ?";
+        Double costoEnsamblado = null;
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setString(1, tipoPieza);
+            ps.setInt(2, cantidadPiezas);
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    costoEnsamblado += rs.getDouble("precio");
+                    cambiarEstado(rs.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return costoEnsamblado;
+    }
+
+    private void cambiarEstado(int id) {
+        String query = "UPDATE Asignacion_Precio SET utilizada = 1 WHERE id = ?";
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
 }
