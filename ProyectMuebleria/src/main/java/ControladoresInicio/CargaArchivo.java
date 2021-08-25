@@ -5,12 +5,15 @@
  */
 package ControladoresInicio;
 
+import Error.Error;
 import Lectura.Lector;
+import ModelosInicio.VerificarDatos;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +46,19 @@ public class CargaArchivo extends HttpServlet {
         
         Lector lector = new Lector();
         lector.leerTXT(inputStream);
+        
+        ArrayList<Error> listaErrores = lector.getListaErrores();
+        
+        //Comprobar carga de archivos
+        VerificarDatos verificarDatos = new VerificarDatos();
+        if (verificarDatos.comprobarDatos()==0) {
+            request.setAttribute("Sucess", false);
+        }
+        else{
+            request.setAttribute("Sucess", true);
+        }
+        
+        request.getRequestDispatcher("/Inicio/CargaDatos.jsp").forward(request, response);
     }
 
     

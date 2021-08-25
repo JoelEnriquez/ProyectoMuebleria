@@ -28,7 +28,7 @@ public class ComprobarDatos extends HttpServlet {
         VerificarDatos vd = new VerificarDatos();
         
         //Comprobar la ausencia de datos; si es asi redirigir para cargar txt
-        if (vd.ComprobarDatos()==0) {
+        if (vd.comprobarDatos()==0) {
             request.setAttribute("SolicitudDatos", 0);
         }
         else{

@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="${pageContext.request.contextPath}/resources/doctor_and_patient.jpg" class="card-img-top" alt="10">
+                    <img src="${pageContext.request.contextPath}/resources/Fabrica1.jpeg" class="card-img-top" alt="10">
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/Login" method="POST">
                             <div class="form-group">

@@ -12,6 +12,7 @@ import EntidadesMuebleria.Pieza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +43,7 @@ public class LecturaPieza {
                         agregarPieza(nuevaPieza, datosPieza.getNumLinea());
                     } else {
                         //Aumentar Existencia
-                        aumentarExistencia(nombre);
+                        aumentarExistencia(nombrePieza(nombre));
                     }
                     AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombre);
                     agregarAsignacion(nuevaAsignacion,datosPieza.getNumLinea());
@@ -66,9 +67,14 @@ public class LecturaPieza {
             ps.setDouble(2, nuevaPieza.getCantidadStock());
 
             ps.execute();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido agregar la pieza"));
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                //Llave Primaria Duplicada
+                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de la pieza"));
+            }
+            else{
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar la pieza correctamente"));
+            }
         }
     }
 
@@ -81,9 +87,14 @@ public class LecturaPieza {
             ps.setBoolean(3, nuevaAsignacion.isUtilizada());
 
             ps.execute();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido generar la asignacion"));
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1452) {
+                //Llave Foranea Incorrecta
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido referir a la llave primaria"));
+            }
+            else{
+            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido generar la asignacion"));               
+            }
         }
     }
 
@@ -120,5 +131,21 @@ public class LecturaPieza {
             e.printStackTrace(System.out);
         }
         return 0;
+    }
+    
+    private String nombrePieza(String nombrePieza) {
+        String query = "SELECT tipo FROM Pieza WHERE tipo = ?";
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setString(1, nombrePieza);
+            try ( ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return "";
     }
 }

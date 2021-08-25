@@ -18,14 +18,29 @@ public class VerificarDatos {
     
     Connection conexion = Conexion.getConexion();
     
-    public int ComprobarDatos(){
-        String query = "SELECT COUNT(*) FROM Cliente";
+    public int comprobarDatos(){
+        int contador = 0;
+        String query = "SELECT COUNT(*) FROM Cliente UNION "
+                + "SELECT COUNT(*) FROM Asignacion_Precio UNION "
+                + "SELECT COUNT(*) FROM Usuario UNION "
+                + "SELECT COUNT(*) FROM Ensamble_Mueble UNION "
+                + "SELECT COUNT(*) FROM Pieza UNION "
+                + "SELECT COUNT(*) FROM Mueble UNION ALL "
+                + "SELECT COUNT(*) FROM Ensamble_Pieza;";
         
         try (PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery()){
             
-            if (rs.next()) {
-                return rs.getInt(1);
+            while (rs.next()) {
+                if(rs.getInt(1)>0){
+                    contador++;
+                }
+            }
+            
+            if (contador==7) {
+                return 1;
+            } else {
+                return 0;
             }
             
         } catch (Exception e) {

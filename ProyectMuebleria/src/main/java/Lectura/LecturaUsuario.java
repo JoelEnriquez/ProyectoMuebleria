@@ -40,7 +40,7 @@ public class LecturaUsuario {
                     try {
                         tipoUsuario = Integer.valueOf(datosUser.getDatos()[2]);
                         Usuario nuevoUsuario = new Usuario(nombre, tipoUsuario, password);
-                        agregarUsuario(nuevoUsuario);
+                        agregarUsuario(nuevoUsuario,datosUser.getNumLinea());
                     } catch (NumberFormatException e) {
                         listaErrores.add(new Error(datosUser.getNumLinea(), "Formato", "No existe un numero entero"));
                     }
@@ -51,7 +51,7 @@ public class LecturaUsuario {
         }
     }
 
-    private void agregarUsuario(Usuario nuevoUsuario) {
+    private void agregarUsuario(Usuario nuevoUsuario, int numeroLinea) {
         String query = "INSERT INTO Usuario VALUES (?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -63,12 +63,11 @@ public class LecturaUsuario {
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062) {
                 //Llave Primaria Duplicada
-                listaErrores.add(new Error(0, "Logico", "Se duplica la llave primaria de usuario"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de usuario"));
             }
             else{
-                listaErrores.add(new Error(0, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
             }
-            e.printStackTrace(System.out);
         }
     }
 

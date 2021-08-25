@@ -10,6 +10,7 @@ import DBConnection.Conexion;
 import EntidadesMuebleria.EnsamblePieza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -56,9 +57,12 @@ public class LecturaEnsamblePieza {
             ps.setInt(3, nuevoEnsamblePieza.getCantidadPieza());
 
             ps.execute();
-        } catch (Exception e) {
-            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
-            e.printStackTrace(System.out);
+        } catch (SQLException e) {
+            if (e.getErrorCode()==1452) {
+                listaErrores.add(new Error(numeroLinea, "Logico", "La llave foranea no tiene un apunte correcto"));
+            } else {
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
+            }    
         }
     }
 

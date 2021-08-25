@@ -31,39 +31,41 @@ public class LecturaEnsambleMueble {
 
     public void analizarEnsambleMueble() throws SQLException {
         for (DatosLinea datosEnsambleMueble : datosEnsambleMuebles) {
-            if (datosEnsambleMueble.getDatos().length == 4) {
+            if (datosEnsambleMueble.getDatos().length == 3) {
 
-                String fechaEnsamble = datosEnsambleMueble.getDatos()[0]; //dd/MM/yyyy
+                String nombreMueble = datosEnsambleMueble.getDatos()[0];
                 String nombreUsuario = datosEnsambleMueble.getDatos()[1];
-                String nombreMueble = datosEnsambleMueble.getDatos()[2];
+                String fechaEnsamble = datosEnsambleMueble.getDatos()[2]; //dd/MM/yyyy
                 LocalDate fechaEnsamblado;
-                Double precioEnsamble = null;
+                Double precioEnsamble = 0.0;
                 try {
                     fechaEnsamblado = cambioFormato(fechaEnsamble); //yyyy/MM/dd
                     try {
                         //Calcular el precio de ensamblaje
-                        boolean piezasSuficientes = true;
+                        boolean success = true;
                         ArrayList<EnsamblePieza> recetaEnsamble = recetaPorMueble(nombreMueble); //Consulta Receta por nombre mueble
 
                         if (recetaEnsamble.isEmpty()) {
-                            listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Formato", "No hay receta disponible para el ensamble"));
+                            listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Logico", "No hay receta disponible para el mueble"));
                         } else {
                             conexion.setAutoCommit(false);
-                            while (piezasSuficientes) {
-                                for (EnsamblePieza ensamblePieza : recetaEnsamble) {
-                                    if (ensamblePieza.getCantidadPieza() > disponibilidadPieza(ensamblePieza.getNombrePieza())) {
-                                        piezasSuficientes = false;
-                                        listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Logico", "No hay piezas disponibles de " + ensamblePieza.getNombrePieza()));
-                                        conexion.rollback();
-                                    } else {
-                                        precioEnsamble += costoEnsamblePieza(ensamblePieza.getNombrePieza(), ensamblePieza.getCantidadPieza());
-                                    }
+                            for (EnsamblePieza ensamblePieza : recetaEnsamble) {
+                                if (ensamblePieza.getCantidadPieza() > disponibilidadPieza(ensamblePieza.getNombrePieza())) {
+                                    success = false;
+                                    listaErrores.add(new Error(datosEnsambleMueble.getNumLinea(), "Logico", "No hay piezas disponibles de " + ensamblePieza.getNombrePieza()));
+                                    conexion.rollback();
+                                    break;
+                                } else {
+                                    precioEnsamble += costoEnsamblePieza(ensamblePieza.getNombrePieza(), ensamblePieza.getCantidadPieza());
                                 }
                             }
-                            EnsambleMueble nuevoEnsambleMueble = new EnsambleMueble(fechaEnsamblado, precioEnsamble, nombreUsuario, nombreMueble);
-                            agregarEnsambleMueble(nuevoEnsambleMueble);
+                            if (success) {
+                                EnsambleMueble nuevoEnsambleMueble = new EnsambleMueble(fechaEnsamblado, precioEnsamble, nombreUsuario, nombreMueble);
+                                agregarEnsambleMueble(nuevoEnsambleMueble, datosEnsambleMueble.getNumLinea());
+                                conexion.commit();
+                            }
                         }
-                    } catch (Exception e) {
+                    } catch (SQLException e) {
                         conexion.rollback();
                     } finally {
                         conexion.setAutoCommit(true);
@@ -79,7 +81,7 @@ public class LecturaEnsambleMueble {
         }
     }
 
-    private void agregarEnsambleMueble(EnsambleMueble ensambleMueble) {
+    private void agregarEnsambleMueble(EnsambleMueble ensambleMueble, int numeroLinea) {
         String query = "INSERT INTO Ensamble_Mueble (fecha_ensamble,precio_ensamble,nombre_usuario,nombre_mueble) VALUES (?,?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -89,9 +91,12 @@ public class LecturaEnsambleMueble {
             ps.setString(4, ensambleMueble.getNombreMueble());
 
             ps.execute();
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace(System.out);
+        } catch (SQLException e) {
+            if (e.getErrorCode()==1452) {
+                listaErrores.add(new Error(numeroLinea, "Logico", "El usuario "+ensambleMueble.getNombreUsuario()+" no existe en el sistema"));
+            } else {
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
+            } 
         }
     }
 
@@ -139,7 +144,7 @@ public class LecturaEnsambleMueble {
 
     private Double costoEnsamblePieza(String tipoPieza, int cantidadPiezas) {
         String query = "select id, precio FROM Asignacion_Precio where tipo_pieza = ? AND utilizada = 0 LIMIT ?";
-        Double costoEnsamblado = null;
+        Double costoEnsamblado = 0.0;
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setString(1, tipoPieza);

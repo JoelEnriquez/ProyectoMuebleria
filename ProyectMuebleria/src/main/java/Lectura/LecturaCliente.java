@@ -43,10 +43,10 @@ public class LecturaCliente {
                         String departamento = datosCliente.getDatos()[4];
 
                         Cliente clienteEspecifico = new Cliente(NIT, nombre, direccion, municipio, departamento);
-                        agregarClienteEspecifico(clienteEspecifico);
+                        agregarClienteEspecifico(clienteEspecifico,datosCliente.getNumLinea());
                     } else {
                         Cliente cliente = new Cliente(NIT, nombre, direccion);
-                        agregarCliente(cliente);
+                        agregarCliente(cliente,datosCliente.getNumLinea());
                     }
                 }
 
@@ -56,7 +56,7 @@ public class LecturaCliente {
         }
     }
 
-    private void agregarCliente(Cliente nuevoCliente) {
+    private void agregarCliente(Cliente nuevoCliente, int numeroLinea) {
         String query = "INSERT INTO Cliente (NIT,nombre,direccion) VALUES (?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -68,16 +68,16 @@ public class LecturaCliente {
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062) {
                 //Llave Primaria Duplicada
-                listaErrores.add(new Error(0, "Logico", "Se duplica la llave primaria de cliente"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
             }
             else{
-                listaErrores.add(new Error(0, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
             }
             e.printStackTrace(System.out);
         }
     }
 
-    private void agregarClienteEspecifico(Cliente nuevoCliente) {
+    private void agregarClienteEspecifico(Cliente nuevoCliente, int numeroLinea) {
         String query = "INSERT INTO Cliente VALUES (?,?,?,?,?)";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
@@ -91,10 +91,10 @@ public class LecturaCliente {
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062) {
                 //Llave Primaria Duplicada
-                listaErrores.add(new Error(0, "Logico", "Se duplica la llave primaria de cliente"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
             }
             else{
-                listaErrores.add(new Error(0, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
             }
             e.printStackTrace(System.out);
         }

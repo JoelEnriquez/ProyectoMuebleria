@@ -10,6 +10,7 @@ import DBConnection.Conexion;
 import EntidadesMuebleria.Mueble;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -53,10 +54,14 @@ public class LecturaMueble {
             ps.setDouble(2, nuevoMueble.getPrecio());
 
             ps.execute();
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace(System.out);
-            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido crear el mueble"));
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                //Llave Primaria Duplicada
+                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria del mueble"));
+            }
+            else{
+                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el mueble correctamente"));
+            }
         }
     }
 

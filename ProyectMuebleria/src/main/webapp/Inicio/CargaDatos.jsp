@@ -19,8 +19,8 @@
         <%--Se verifican si ya hay un llenado en la base de datos, si hay, redirigir a login --%>
         <%  
             VerificarDatos verificar = new VerificarDatos();
-            int resultAux = verificar.ComprobarDatos();
-            if (resultAux != 0) {
+            int resultAux = verificar.comprobarDatos();
+            if (resultAux == 1) {
                 response.sendRedirect(request.getContextPath()+"/Inicio/Login.jsp");
             }
         %>
