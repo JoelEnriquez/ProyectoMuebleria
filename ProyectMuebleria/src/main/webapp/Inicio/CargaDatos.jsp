@@ -11,7 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cargar Datos</title>
+        <link rel="stylesheet" href="../CSSExtra/CSSCargaDatos.css" />
         <jsp:include page="/Extra/CSS.jsp"/>
+
     </head>
     <body>
         <% if (request.getAttribute("Sucess") == null) {%>
@@ -28,26 +30,19 @@
 
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <header>
+                <div class="col-12">
+                    <header class="mt-5">
                         <h1>Carga de Archivo</h1>
                     </header>
-
-                    <div class="container" style="padding-top: 150px" >
+                    <div class="container " style="padding-top: 150px" >
                         <FORM class="col-12 caja2" METHOD="POST" ACTION="../CargaArchivo" enctype="multipart/form-data">  
-                            <div class="row mb-5 mt-2">
-                                <div class="form-group col-md-4">
-                                    <label>Elija el Archivo TXT</label>
-                                </div>
-                                <div class="form-group col-md-4">
-
-                                    <input class="form-control" type="file"  name="archivoTXT" id="archivoTXT" placeholder="Elija el Archivo" required>
-                                </div>
+                            <div class="col-12">
+                                <input class="form-control" type="file"  name="archivoTXT" id="archivoTXT" placeholder="Elija el Archivo" required>
                             </div>
-
-                            <input class="btn btn-primary" type="submit" value="Cargar">
-                            <input class="btn btn-secundary" type="reset" value="Eliminar Datos">
-
+                            <div class="mt-5">
+                                <input class="btn btn-primary" type="submit" value="Cargar">
+                                <input class="btn btn-secundary" type="reset" value="Eliminar Datos">
+                            </div>
                         </FORM>
                     </div>
                 </div>
@@ -56,20 +51,39 @@
         </div>
 
         <% } else {%>
-        <div class="container " style="padding-top: 150px" >
-            <h1 class="align-content-lg-center">Carga de Archivo XML</h1>
-            <% if ((boolean) request.getAttribute("Sucess")) {%>
-            <div class="alert alert-success">
-                Carga de Archivo Realizada con Exito
-            </div>
-            <a href="${pageContext.request.contextPath}/Inicio/Login.jsp" class="btn btn-primary">Iniciar Sesion</a>
 
-            <% } else {%>
-            <div class="alert alert-danger">
-                Fallo en la Carga de Archivo
+        <div class="container" style="padding-top: 150px" >
+            <h1 class="mb-5" style="text-align: center">
+                Carga de Archivo
+            </h1>
+            <div class="fila-respuesta row justify-content-around">
+                <div class="col-5">
+                    <% if ((boolean) request.getAttribute("Sucess")) {%>
+                    <div class="alert alert-success" style="text-align: center">
+                        Carga de Archivo Realizada con Exito
+                    </div>
+                    <div class="row justify-content-center">
+                        <a href="${pageContext.request.contextPath}/Inicio/Login.jsp" class="btn btn-primary">
+                            Iniciar Sesion
+                        </a>
+                    </div>
+
+                    <% } else {%>
+                    <div class="alert alert-danger " style="text-align: center">
+                        Fallo en la Carga de Archivo
+                    </div>
+                    <div class="row justify-content-center">
+                        <a href="index.jsp" class="btn btn-primary">
+                            Volver a Intentar
+                        </a>
+                    </div>
+
+                    <% }%>
+                </div>
+                <div class="col-5" style="background: #f2f2f2">
+                    hi
+                </div>
             </div>
-            <a href="index.jsp" class="btn btn-primary">Volver a Intentar</a>
-            <% }%>
         </div>
         <% }%> 
 

@@ -20,13 +20,13 @@ public class VerificarDatos {
     
     public int comprobarDatos(){
         int contador = 0;
-        String query = "SELECT COUNT(*) FROM Cliente UNION "
-                + "SELECT COUNT(*) FROM Asignacion_Precio UNION "
-                + "SELECT COUNT(*) FROM Usuario UNION "
-                + "SELECT COUNT(*) FROM Ensamble_Mueble UNION "
-                + "SELECT COUNT(*) FROM Pieza UNION "
+        String query = "SELECT COUNT(*) FROM Cliente UNION ALL "
+                + "SELECT COUNT(*) FROM Asignacion_Precio UNION ALL "
+                + "SELECT COUNT(*) FROM Usuario UNION ALL "
+                + "SELECT COUNT(*) FROM Ensamble_Mueble UNION ALL "
+                + "SELECT COUNT(*) FROM Pieza UNION ALL "
                 + "SELECT COUNT(*) FROM Mueble UNION ALL "
-                + "SELECT COUNT(*) FROM Ensamble_Pieza;";
+                + "SELECT COUNT(*) FROM Ensamble_Pieza";
         
         try (PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery()){

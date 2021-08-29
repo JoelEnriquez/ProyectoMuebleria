@@ -63,13 +63,20 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--JSTL para ahorrar codigo en JSP -->
-        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/javax.servlet.jsp.jstl-api -->
+        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <version>1.2.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

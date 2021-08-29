@@ -9,9 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Inicio Fabrica</title>
+        <jsp:include page="/Extra/CSS.jsp"/>
     </head>
     <body>
-        <h1>Hello World!ñññáó</h1>
+        <jsp:include page="/NavBars/NavBarFabrica.jsp"/>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img src="${pageContext.request.contextPath}/resources/Foto Fabrica.jpg" alt="150">
+                </div>
+            </div>
+        </div>
+        <jsp:include page="/Extra/JS.jsp"/>
     </body>
 </html>

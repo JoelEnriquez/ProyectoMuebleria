@@ -153,6 +153,7 @@ public class LecturaEnsambleMueble {
                 while (rs.next()) {
                     costoEnsamblado += rs.getDouble("precio");
                     cambiarEstado(rs.getInt("id"));
+                    restarExistencia(tipoPieza);
                 }
             }
         } catch (SQLException e) {
@@ -166,6 +167,17 @@ public class LecturaEnsambleMueble {
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    private void restarExistencia(String tipoPieza){
+        String query = "UPDATE Pieza SET cantidad_stock = cantidad_stock - 1 WHERE tipo = ?";
+        
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setString(1, tipoPieza);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

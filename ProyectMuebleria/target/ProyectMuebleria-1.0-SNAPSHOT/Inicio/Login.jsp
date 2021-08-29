@@ -21,14 +21,14 @@
         <%}%>
 
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-5" >
                 <div class="card" style="width: 18rem;">
                     <img src="${pageContext.request.contextPath}/resources/Fabrica1.jpeg" class="card-img-top" alt="10">
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/Login" method="POST">
                             <div class="form-group">
-                                <label>Codigo</label>
-                                <input type="text" class="form-control" name="codigo">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" name="nombre">
                             </div>
                             <div class="form-group">
                                 <label>Password</label>

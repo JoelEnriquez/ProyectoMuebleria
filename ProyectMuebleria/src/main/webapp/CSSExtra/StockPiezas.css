@@ -1,0 +1,16 @@
+
+.form-stock {
+    height: 300px;
+    background: #f2f2f2
+}
+
+.table-data {
+    height: 500px;
+    width: 100%;
+    overflow-y: scroll;
+    
+}
+
+.table {
+    text-align: center;
+}
