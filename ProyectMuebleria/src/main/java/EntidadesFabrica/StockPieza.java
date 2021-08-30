@@ -11,11 +11,13 @@ package EntidadesFabrica;
  */
 public class StockPieza {
     
+    private int id;
     private String tipoPieza;
     private Double precio;
     private int cantidadStock;
 
-    public StockPieza(String tipoPieza, Double precio, int cantidadStock) {
+    public StockPieza(int id, String tipoPieza, Double precio, int cantidadStock) {
+        this.id = id;
         this.tipoPieza = tipoPieza;
         this.precio = precio;
         this.cantidadStock = cantidadStock;
@@ -62,6 +64,14 @@ public class StockPieza {
      */
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

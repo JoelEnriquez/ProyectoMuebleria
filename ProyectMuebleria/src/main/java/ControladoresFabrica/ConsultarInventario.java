@@ -28,28 +28,42 @@ public class ConsultarInventario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        String operacion = request.getParameter("op");
 
-        ArrayList<StockPieza> stockPiezas = modeloPieza.piezasStock();
+        String operacion = request.getParameter("op"); //Para redirigir al jsp indicado
+        ArrayList<StockPieza> stockPiezas = modeloPieza.piezasStock();   
+        
         if (!stockPiezas.isEmpty()) {
             request.setAttribute("stockPiezas", stockPiezas);
-        }
-        else{
+        } else {
             request.setAttribute("stockPiezas", null);
         }
-        
-        //Redireccionar al lugar correcto
+
+        //Redireccionar
         RequestDispatcher rd = null;
         if (operacion.equals("inventario")) {
             rd = request.getRequestDispatcher("/AreaFabrica/StockPiezas.jsp");
         } else if (operacion.equals("modificar")) {
             rd = request.getRequestDispatcher("/AreaFabrica/ModificarPieza.jsp");
         }
-        
+
         rd.forward(request, response);
     }
-
     
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String valorOrden = request.getParameter("ordenar-stock"); //Valor para ordenar ASC o DESC
+        ArrayList<StockPieza> stockPiezas = modeloPieza.piezasStockOrden(valorOrden);
+        
+        if (!stockPiezas.isEmpty()) {
+            request.setAttribute("stockPiezas", stockPiezas);
+        } else {
+            request.setAttribute("stockPiezas", null);
+        }
+        
+        request.getRequestDispatcher("/AreaFabrica/StockPiezas.jsp").forward(request, response);
+    }
 
 }

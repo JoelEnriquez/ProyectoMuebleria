@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class ModeloPieza {
 
+    final String queryStock = "SELECT AP.id, P.tipo, AP.precio, P.cantidad_stock FROM Pieza P INNER JOIN Asignacion_Precio AP ON P.tipo = AP.tipo_pieza WHERE AP.utilizada = 0";
     private Connection conexion = Conexion.getConexion();
 
     public void crearPieza(Pieza pieza) throws SQLException {
@@ -111,16 +112,33 @@ public class ModeloPieza {
     }
 
     public ArrayList<StockPieza> piezasStock() {
-        String query = "SELECT P.tipo, AP.precio, P.cantidad_stock FROM Pieza P INNER JOIN "
-                + "Asignacion_Precio AP ON P.tipo = AP.tipo_pieza WHERE AP.utilizada = 0;";
         ArrayList<StockPieza> piezas = new ArrayList<>();
 
-        try ( PreparedStatement ps = conexion.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        try ( PreparedStatement ps = conexion.prepareStatement(queryStock); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 piezas.add(new StockPieza(
-                        rs.getString(1),
-                        rs.getDouble(2),
-                        rs.getInt(3)));
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3),
+                        rs.getInt(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return piezas;
+    }
+    
+    public ArrayList<StockPieza> piezasStockOrden(String orden) {
+        ArrayList<StockPieza> piezas = new ArrayList<>();
+
+        try ( PreparedStatement ps = conexion.prepareStatement(queryStock+" ORDER BY P.cantidad_stock "+orden);
+                ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                piezas.add(new StockPieza(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3),
+                        rs.getInt(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
