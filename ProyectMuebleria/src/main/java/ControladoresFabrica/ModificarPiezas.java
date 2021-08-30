@@ -37,12 +37,30 @@ public class ModificarPiezas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String edit = request.getParameter("edit");
+        int id = Integer.parseInt(request.getParameter("id"));
         
-
+        switch (edit) {
+            case "delete":
+                modeloPieza.eliminarPieza(id);
+                request.setAttribute("sucess-delete", true);
+                request.getRequestDispatcher("/ConsultarInventario?op=modificar").forward(request, response);
+                break;
+            case "modify":
+                StockPieza piezaModificar = modeloPieza.devolverPorId(id);
+                request.setAttribute("pieza", piezaModificar);
+                request.getRequestDispatcher("/AreaFabrica/EditarPieza.jsp").forward(request, response);
+                break;
+            default:
+                response.sendRedirect("/ConsultarInventario?op=modificar");
+                break;
+        }
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException{
         
     }
-
-    
-    
 
 }

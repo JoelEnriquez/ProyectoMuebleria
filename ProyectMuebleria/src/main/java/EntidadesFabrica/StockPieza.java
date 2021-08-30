@@ -23,6 +23,20 @@ public class StockPieza {
         this.cantidadStock = cantidadStock;
     }
 
+    /**
+     * Constructor para editar pieza
+     * @param id
+     * @param tipoPieza
+     * @param precio 
+     */
+    public StockPieza(int id, String tipoPieza, Double precio) {
+        this.id = id;
+        this.tipoPieza = tipoPieza;
+        this.precio = precio;
+    }
+    
+    
+
     
     /**
      * @return the tipoPieza

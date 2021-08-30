@@ -24,19 +24,22 @@ public class ModeloPieza {
     final String queryStock = "SELECT AP.id, P.tipo, AP.precio, P.cantidad_stock FROM Pieza P INNER JOIN Asignacion_Precio AP ON P.tipo = AP.tipo_pieza WHERE AP.utilizada = 0";
     private Connection conexion = Conexion.getConexion();
 
-    public void crearPieza(Pieza pieza) throws SQLException {
-        String query = "INSERT INTO Pieza VALUES (?,?)";
-
+    public String nombrePorId(int id){
+        String query = "SELECT tipo_pieza FROM Asignacion_Precio WHERE id = ?";
+        
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
-            ps.setString(1, pieza.getTipo());
-            ps.setInt(2, pieza.getCantidadStock());
-            ps.execute();
-
-        } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                throw new SQLException("El nombre de la pieza ya existe");
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
         }
+        return "";
     }
 
     public void agregarPiezas(ArrayList<AsignacionPrecio> nuevasAsignaciones) {
@@ -69,13 +72,27 @@ public class ModeloPieza {
             e.printStackTrace(System.out);
         }
     }
-
-    public void eliminarPieza(String nombrePieza) {
-        String query = "DELETE FROM Pieza WHERE tipo = ?";
+    
+    private void eliminarExistencia(String tipoPieza) {
+        String query = "UPDATE Pieza SET cantidad_stock = cantidad_stock - 1 WHERE tipo = ?";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
-            ps.setString(1, nombrePieza);
+            ps.setString(1, tipoPieza);
             ps.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    public void eliminarPieza(int id) {
+        String query = "DELETE FROM Asignacion_Precio WHERE id = ?";
+
+        try ( PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.execute();
+            
+            eliminarExistencia(nombrePorId(id)); //Restar en uno la cantidad de stock
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -158,5 +175,25 @@ public class ModeloPieza {
             e.printStackTrace(System.out);
         }
         return stockPiezas;
+    }
+    
+    public StockPieza devolverPorId(int id){
+        String query = "SELECT precio, tipo_pieza FROM Asignacion_Precio WHERE id = ?";
+        
+        try (PreparedStatement ps = conexion.prepareStatement(query)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return new StockPieza(id,
+                            rs.getString("tipo_pieza"),
+                            rs.getDouble("precio"));
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
     }
 }

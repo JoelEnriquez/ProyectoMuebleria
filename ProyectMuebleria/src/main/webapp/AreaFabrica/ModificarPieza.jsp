@@ -31,11 +31,11 @@
                                     <td>${stockPieza.tipoPieza}</td>
                                     <td>${stockPieza.precio}</td>
                                     <td>${stockPieza.cantidadStock}</td>
-                                    <td><a href="details-servlet?edit=true&id=${stockPieza.tipoPieza}" 
+                                    <td><a href="${pageContext.request.contextPath}/ModificarPiezas?edit=modify&id=${stockPieza.id}" 
                                            class="btn btn-lg btn-block btn-outline-warning">
                                             Editar
                                         </a>
-                                        <a href="details-servlet?edit=true&id=${stockPieza.tipoPieza}" 
+                                        <a href="${pageContext.request.contextPath}/ModificarPiezas?edit=delete&id=${stockPieza.id}" 
                                            class="btn btn-lg btn-block btn-outline-danger">
                                             Eliminar
                                         </a>

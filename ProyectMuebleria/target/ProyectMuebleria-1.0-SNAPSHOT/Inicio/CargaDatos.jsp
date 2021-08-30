@@ -3,7 +3,7 @@
     Created on : 14/08/2021, 22:03:03
     Author     : joel
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="ModelosInicio.VerificarDatos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cargar Datos</title>
-        <link rel="stylesheet" href="../CSSExtra/CSSCargaDatos.css" />
+        <link rel="stylesheet" href="CSSExtra/CSSCargaDatos.css"/>
         <jsp:include page="/Extra/CSS.jsp"/>
 
     </head>
@@ -29,12 +29,12 @@
 
 
         <div class="container">
-            <div class="row">
+            <div class="row" style="text-align: center">
                 <div class="col-12">
-                    <header class="mt-5">
+                    <header class="mt-5 mb-5">
                         <h1>Carga de Archivo</h1>
                     </header>
-                    <div class="container " style="padding-top: 150px" >
+                    <div class="container">
                         <FORM class="col-12 caja2" METHOD="POST" ACTION="../CargaArchivo" enctype="multipart/form-data">  
                             <div class="col-12">
                                 <input class="form-control" type="file"  name="archivoTXT" id="archivoTXT" placeholder="Elija el Archivo" required>
@@ -47,7 +47,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <% } else {%>
@@ -57,7 +56,7 @@
                 Carga de Archivo
             </h1>
             <div class="fila-respuesta row justify-content-around">
-                <div class="col-5">
+                <div class="col col-5 align-self-center">
                     <% if ((boolean) request.getAttribute("Sucess")) {%>
                     <div class="alert alert-success" style="text-align: center">
                         Carga de Archivo Realizada con Exito
@@ -80,8 +79,34 @@
 
                     <% }%>
                 </div>
-                <div class="col-5" style="background: #f2f2f2">
-                    hi
+                <div class="col errores col-5" style="background: #f3f3f3;height: 600px">
+                    <div style="height: 600px; width: 100%; overflow-y: scroll;">
+                        <table class="table table-striped table-bordered mt-5" style="text-align: center">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="th-sm">Linea de Error</th>
+                                    <th class="th-sm">Tipo de Error</th>
+                                    <th class="th-sm">Mensaje de Error</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${errores}" var="error">
+                                <tr>
+                                    <td>${error.numeroLineaError}</td>
+                                    <td>${error.tipoError}</td>
+                                    <td>${error.mensajeError}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Linea de Error</th>
+                                    <th>Tipo de Error</th>
+                                    <th>Mensaje de Error</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

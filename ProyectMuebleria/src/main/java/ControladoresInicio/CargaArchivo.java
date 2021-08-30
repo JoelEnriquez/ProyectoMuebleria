@@ -58,6 +58,7 @@ public class CargaArchivo extends HttpServlet {
             request.setAttribute("Sucess", true);
         }
         
+        request.setAttribute("errores", listaErrores);
         request.getRequestDispatcher("/Inicio/CargaDatos.jsp").forward(request, response);
     }
 

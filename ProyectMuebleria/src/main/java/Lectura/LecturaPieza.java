@@ -43,9 +43,9 @@ public class LecturaPieza {
                         agregarPieza(nuevaPieza, datosPieza.getNumLinea());
                     } else {
                         //Aumentar Existencia
-                        aumentarExistencia(nombrePieza(nombre));
+                        aumentarExistencia(nombre);
                     }
-                    AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombre);
+                    AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombrePieza(nombre));
                     agregarAsignacion(nuevaAsignacion,datosPieza.getNumLinea());
                 } catch (NumberFormatException e) {
                     listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay un formato apropiado del precio"));

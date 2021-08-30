@@ -11,6 +11,7 @@ and open the template in the editor.
     text-align: center;
 }
 
-.fila-respuesta {
-    
+.errores {
+    height: 800px;
+    background: #f2f2f2
 }
