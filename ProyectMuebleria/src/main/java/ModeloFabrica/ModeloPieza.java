@@ -196,4 +196,34 @@ public class ModeloPieza {
         }
         return null;
     }
+    
+    public ArrayList<String> nombresTipoPieza(){
+        String query = "SELECT tipo FROM Pieza";
+        ArrayList<String> listaNombres = new ArrayList<>();
+        
+        try (PreparedStatement ps = conexion.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()){
+            while (rs.next()) {
+                listaNombres.add(rs.getString(1));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return listaNombres;
+    }
+    
+    public void actualizarPieza(int id, String tipoPieza, Double precio){
+        String query = "UPDATE Asignacion_Precio SET precio = ?, tipo_pieza = ? WHERE id = ?";
+        
+        try (PreparedStatement ps = conexion.prepareStatement(query)){
+            ps.setDouble(1, precio);
+            ps.setString(2, tipoPieza);
+            ps.setInt(3, id);
+            
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+        }
+    }
 }

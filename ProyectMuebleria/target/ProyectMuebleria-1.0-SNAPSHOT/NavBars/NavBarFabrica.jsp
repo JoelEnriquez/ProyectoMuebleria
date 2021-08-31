@@ -15,7 +15,7 @@
                         Piezas
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Crear</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarPiezas">Registrar</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario?op=modificar">Modificar</a></li>
                     </ul>
                 </li>
