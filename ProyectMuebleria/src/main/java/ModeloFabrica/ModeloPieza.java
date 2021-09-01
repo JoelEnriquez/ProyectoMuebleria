@@ -42,9 +42,10 @@ public class ModeloPieza {
         return "";
     }
 
-    public void agregarPiezas(ArrayList<AsignacionPrecio> nuevasAsignaciones) {
+    public void agregarPiezas(ArrayList<AsignacionPrecio> nuevasAsignaciones) throws SQLException{
         String query = "INSERT INTO Asignacion_Precio (precio,tipo_pieza,utilizada) VALUES (?,?,?)";
-
+        conexion.setAutoCommit(false);
+        
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             for (AsignacionPrecio nuevaAsignacion : nuevasAsignaciones) {
                 ps.setDouble(1, nuevaAsignacion.getPrecio());
@@ -54,10 +55,11 @@ public class ModeloPieza {
 
                 aumentarExistencia(nuevaAsignacion.getTipoPieza());
             }
+            conexion.commit();       
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1452) {
-                //Llave Foranea Incorrecta
-            }
+            conexion.rollback();
+        } finally {
+            conexion.setAutoCommit(true);
         }
     }
 
@@ -90,10 +92,10 @@ public class ModeloPieza {
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setInt(1, id);
-            ps.execute();
             
             eliminarExistencia(nombrePorId(id)); //Restar en uno la cantidad de stock
-
+            ps.execute(); //Restar de la asignacion stock
+            
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -213,7 +215,7 @@ public class ModeloPieza {
         return listaNombres;
     }
     
-    public void actualizarPieza(int id, String tipoPieza, Double precio){
+    public void actualizarPieza(int id, String tipoPieza, Double precio) throws SQLException{
         String query = "UPDATE Asignacion_Precio SET precio = ?, tipo_pieza = ? WHERE id = ?";
         
         try (PreparedStatement ps = conexion.prepareStatement(query)){
@@ -223,7 +225,10 @@ public class ModeloPieza {
             
             ps.executeUpdate();
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            throw new SQLException("No se ha podido actualizar la pieza");
         }
     }
+    
+    
 }

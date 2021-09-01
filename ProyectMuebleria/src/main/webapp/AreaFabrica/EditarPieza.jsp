@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row align-items-center mt-5" style="height: 600px">
                 <div class="col-12">
-                    <c:if test="${success!=null}"> <p class="alert alert-success" style="text-align: center"> Cambio Generado Exitosamente </p></c:if>  
+                    <c:if test="${success!=null}"> <p class="alert alert-success mb-5" style="text-align: center"> Cambio Generado Exitosamente </p></c:if>  
                     <c:if test="${error_change!=null}"> <p class="alert alert-danger mb-5" style="text-align: center">${error}</p></c:if>
                     <form action="${pageContext.request.contextPath}/ModificarPiezas" method="POST">
                         <input type="hidden" id="id" name="id" value="${pieza.id}">
@@ -35,7 +35,7 @@
                         <div class="input-group mb-3 justify-content-between">
                             <label class="input-group-text" for="inputPrecio">Precio</label>
                             <div class="col-sm-11">
-                                <input style="text-align: center" value="${pieza.precio}" type="number" class="form-control" name="precio" id="inputPrecio" placeholder="Precio">
+                                <input style="text-align: center" value="${pieza.precio}" type="number" min="0" step="0.01" class="form-control" name="precio" id="inputPrecio" placeholder="Precio">
                             </div>
                         </div>
                         <div class="form-group row">

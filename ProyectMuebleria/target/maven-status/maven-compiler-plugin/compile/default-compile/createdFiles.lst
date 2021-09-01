@@ -14,7 +14,10 @@ ControladoresInicio/ControlLogOut.class
 Lectura/LecturaCliente.class
 EntidadesMuebleria/Pieza.class
 ModeloFabrica/ModeloPieza.class
+ControladoresFabrica/RegistrarPiezas.class
 ModelosInicio/LoginModel.class
+ModeloFabrica/ModeloLogicaEnsamble.class
+ControladoresFabrica/ControladorEnsambleMueble.class
 ControladoresInicio/Login.class
 ControladoresInicio/ComprobarDatos.class
 ControladoresInicio/CargaArchivo.class
@@ -22,6 +25,7 @@ Lectura/LecturaPieza.class
 EntidadesMuebleria/Mueble.class
 ControladoresFabrica/ConsultarInventario.class
 ModelosInicio/VerificarDatos.class
+ModeloFabrica/ModeloMueble.class
 Error/Error.class
 EntidadesPersona/Cliente.class
 EntidadesMuebleria/EnsambleMueble.class

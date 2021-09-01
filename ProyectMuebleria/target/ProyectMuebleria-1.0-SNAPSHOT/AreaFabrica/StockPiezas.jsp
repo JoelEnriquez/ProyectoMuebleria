@@ -58,7 +58,9 @@
                                 <td>${stockPieza.id}</td>
                                 <td>${stockPieza.tipoPieza}</td>
                                 <td>${stockPieza.precio}</td>
-                                <td>${stockPieza.cantidadStock}</td>
+                                <td <c:if test="${stockPieza.cantidadStock<10}">class="bg-danger text-white"</c:if>>
+                                    ${stockPieza.cantidadStock}
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

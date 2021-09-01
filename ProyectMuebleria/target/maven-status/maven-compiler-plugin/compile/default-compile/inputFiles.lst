@@ -1,5 +1,6 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/Login.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/ControlLogOut.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ModeloLogicaEnsamble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/Pieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesFabrica/StockPieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/DBConnection/Conexion.java
@@ -16,11 +17,14 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaEnsamblePieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ModeloPieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFabrica/ConsultarInventario.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFabrica/RegistrarPiezas.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFabrica/ControladorEnsambleMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModelosInicio/LoginModel.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/Lector.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaEnsambleMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaPieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaUsuario.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ModeloMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFabrica/ModificarPiezas.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/EnsambleMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/EnsamblePieza.java

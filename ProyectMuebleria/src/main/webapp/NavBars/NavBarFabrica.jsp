@@ -19,15 +19,8 @@
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario?op=modificar">Modificar</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ensamble
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ensamblar Mueble</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Muebles Creados</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ControladorEnsambleMueble">Ensamblar y Muebles Creados</a>
                 </li>
             </ul>
             <span class="d-flex navbar-text text-white">

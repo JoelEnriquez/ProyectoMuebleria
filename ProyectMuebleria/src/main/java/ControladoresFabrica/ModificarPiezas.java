@@ -8,6 +8,7 @@ package ControladoresFabrica;
 import EntidadesFabrica.StockPieza;
 import ModeloFabrica.ModeloPieza;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,8 +74,14 @@ public class ModificarPiezas extends HttpServlet {
         
         //Verificar que el coste se mayor que 0
         if (costo>=0.0) {
-            modeloPieza.actualizarPieza(id, tipoPieza, costo);
-            request.setAttribute("success", true);
+            try {
+                modeloPieza.actualizarPieza(id, tipoPieza, costo);
+                request.setAttribute("success", true);
+            } catch (SQLException e) {
+                request.setAttribute("error_change", true);
+                request.setAttribute("error", "No se ha podido realizar el registro");
+            }          
+            
             redirigirModificar(request, response, id);
         }
         else{
