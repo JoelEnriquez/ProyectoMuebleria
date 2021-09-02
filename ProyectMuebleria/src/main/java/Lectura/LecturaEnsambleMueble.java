@@ -92,11 +92,18 @@ public class LecturaEnsambleMueble {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode()==1452) {
-                listaErrores.add(new Error(numeroLinea, "Logico", "El usuario "+ensambleMueble.getNombreUsuario()+" no existe en el sistema"));
-            } else {
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
-            } 
+            switch (e.getErrorCode()) {
+                case 1452:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "El usuario " + ensambleMueble.getNombreUsuario() + " no existe en el sistema"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
+                    break;
+            }
         }
     }
 
@@ -172,10 +179,10 @@ public class LecturaEnsambleMueble {
             e.printStackTrace(System.out);
         }
     }
-    
-    private void restarExistencia(String tipoPieza){
+
+    private void restarExistencia(String tipoPieza) {
         String query = "UPDATE Pieza SET cantidad_stock = cantidad_stock - 1 WHERE tipo = ?";
-        
+
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setString(1, tipoPieza);
             ps.executeUpdate();

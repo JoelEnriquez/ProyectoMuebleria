@@ -66,14 +66,19 @@ public class LecturaCliente {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                //Llave Primaria Duplicada
-                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
+            switch (e.getErrorCode()) {
+                case 1062:
+                    //Llave Primaria Duplicada
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                    break;
             }
-            else{
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
-            }
-            e.printStackTrace(System.out);
         }
     }
 
@@ -89,12 +94,18 @@ public class LecturaCliente {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                //Llave Primaria Duplicada
-                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
-            }
-            else{
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
+            switch (e.getErrorCode()) {
+                case 1062:
+                    //Llave Primaria Duplicada
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de cliente"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                    break;
             }
             e.printStackTrace(System.out);
         }

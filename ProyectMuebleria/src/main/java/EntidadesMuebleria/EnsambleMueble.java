@@ -19,6 +19,7 @@ public class EnsambleMueble {
     private Double precioEnsamble;
     private String nombreUsuario;
     private String nombreMueble;
+    private int idFactura;
 
     public EnsambleMueble(int id, LocalDate fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble) {
         this.id = id;
@@ -33,6 +34,23 @@ public class EnsambleMueble {
         this.precioEnsamble = precioEnsamble;
         this.nombreUsuario = nombreUsuario;
         this.nombreMueble = nombreMueble;
+    }
+
+    public EnsambleMueble(int id, LocalDate fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble, int idFactura) {
+        this.id = id;
+        this.fechaEnsamble = fechaEnsamble;
+        this.precioEnsamble = precioEnsamble;
+        this.nombreUsuario = nombreUsuario;
+        this.nombreMueble = nombreMueble;
+        this.idFactura = idFactura;
+    }
+
+    public EnsambleMueble(LocalDate fechaEnsamble, Double precioEnsamble, String nombreUsuario, String nombreMueble, int idFactura) {
+        this.fechaEnsamble = fechaEnsamble;
+        this.precioEnsamble = precioEnsamble;
+        this.nombreUsuario = nombreUsuario;
+        this.nombreMueble = nombreMueble;
+        this.idFactura = idFactura;
     }
 
     public int getId() {
@@ -74,6 +92,15 @@ public class EnsambleMueble {
     public void setNombreMueble(String nombreMueble) {
         this.nombreMueble = nombreMueble;
     }
+
+    public int getIdFactura() {
+        return idFactura;
+    }
+
+    public void setIdFactura(int idFactura) {
+        this.idFactura = idFactura;
+    }
+    
     
     
 }

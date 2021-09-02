@@ -40,7 +40,7 @@ public class LecturaUsuario {
                     try {
                         tipoUsuario = Integer.valueOf(datosUser.getDatos()[2]);
                         Usuario nuevoUsuario = new Usuario(nombre, tipoUsuario, password);
-                        agregarUsuario(nuevoUsuario,datosUser.getNumLinea());
+                        agregarUsuario(nuevoUsuario, datosUser.getNumLinea());
                     } catch (NumberFormatException e) {
                         listaErrores.add(new Error(datosUser.getNumLinea(), "Formato", "No existe un numero entero"));
                     }
@@ -61,12 +61,18 @@ public class LecturaUsuario {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                //Llave Primaria Duplicada
-                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de usuario"));
-            }
-            else{
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
+            switch (e.getErrorCode()) {
+                case 1062:
+                    //Llave Primaria Duplicada
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de usuario"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el usuario correctamente"));
+                    break;
             }
         }
     }

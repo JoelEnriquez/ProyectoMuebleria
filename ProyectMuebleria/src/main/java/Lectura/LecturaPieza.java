@@ -46,14 +46,13 @@ public class LecturaPieza {
                         aumentarExistencia(nombre);
                     }
                     AsignacionPrecio nuevaAsignacion = new AsignacionPrecio(precio, false, nombrePieza(nombre));
-                    agregarAsignacion(nuevaAsignacion,datosPieza.getNumLinea());
+                    agregarAsignacion(nuevaAsignacion, datosPieza.getNumLinea());
                 } catch (NumberFormatException e) {
                     listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay un formato apropiado del precio"));
-                } catch (NullPointerException nullPointer){
+                } catch (NullPointerException nullPointer) {
                     listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No hay ningun precio especificado"));
                 }
-            }
-            else{
+            } else {
                 listaErrores.add(new Error(datosPieza.getNumLinea(), "Formato", "No vienen el numero de datos correctos"));
             }
         }
@@ -68,12 +67,18 @@ public class LecturaPieza {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                //Llave Primaria Duplicada
-                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de la pieza"));
-            }
-            else{
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar la pieza correctamente"));
+            switch (e.getErrorCode()) {
+                case 1062:
+                    //Llave Primaria Duplicada
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria de la pieza"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar la pieza correctamente"));
+                    break;
             }
         }
     }
@@ -88,12 +93,18 @@ public class LecturaPieza {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1452) {
-                //Llave Foranea Incorrecta
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido referir a la llave primaria"));
-            }
-            else{
-            listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido generar la asignacion"));               
+            switch (e.getErrorCode()) {
+                case 1452:
+                    //Llave Foranea Incorrecta
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido referir a la llave primaria"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido generar la asignacion"));
+                    break;
             }
         }
     }
@@ -132,7 +143,7 @@ public class LecturaPieza {
         }
         return 0;
     }
-    
+
     private String nombrePieza(String nombrePieza) {
         String query = "SELECT tipo FROM Pieza WHERE tipo = ?";
 

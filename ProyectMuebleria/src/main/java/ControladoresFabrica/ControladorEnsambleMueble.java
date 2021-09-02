@@ -39,7 +39,7 @@ public class ControladorEnsambleMueble extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String filtro = "";
-        if (request.getParameter("mueble_creacion")!=null) {
+        if (request.getParameter("mueble_creacion") != null) {
             filtro = request.getParameter("mueble_creacion");
         }
         mostrarInfoMuebles(request, response, filtro);
@@ -52,7 +52,7 @@ public class ControladorEnsambleMueble extends HttpServlet {
         String cantidad = request.getParameter("cantidad");
         int cantidadFabricar = 0;
         int auxMueblesFabrica = 0; //Si ocurre un error, indicar el numero de muebles que se pueden fabricar
-        
+
         LocalDate fechaEnsamble = LocalDate.now();
         try {
             cantidadFabricar = Integer.parseInt(cantidad);
@@ -73,7 +73,7 @@ public class ControladorEnsambleMueble extends HttpServlet {
                         for (EnsamblePieza ensamblePieza : recetaMueble) {
                             if (ensamblePieza.getCantidadPieza() > modeloLogico.disponibilidadPieza(ensamblePieza.getNombrePieza())) {
                                 success = false;
-                                request.setAttribute("error", "No hay piezas suficientes de " + ensamblePieza.getNombrePieza()+". Se pueden fabricar "+ auxMueblesFabrica+" muebles tipo \""+nombreMueble+"\".");
+                                request.setAttribute("error", "No hay piezas suficientes de " + ensamblePieza.getNombrePieza() + ". Se pueden fabricar " + auxMueblesFabrica + " muebles tipo \"" + nombreMueble + "\".");
                                 conexion.rollback();
                                 break;
                             } else {
@@ -82,16 +82,22 @@ public class ControladorEnsambleMueble extends HttpServlet {
                         }
                         if (success) {
                             EnsambleMueble nuevoEnsambleMueble = new EnsambleMueble(fechaEnsamble, precioEnsamble, request.getSession().getAttribute("nombre").toString(), nombreMueble);
-                            modeloMueble.agregarEnsambleMueble(nuevoEnsambleMueble);
-                            auxMueblesFabrica++;
+                            try {
+                                modeloMueble.agregarEnsambleMueble(nuevoEnsambleMueble);
+                                auxMueblesFabrica++;
+                            } catch (SQLException e) {
+                                conexion.rollback();
+                                request.setAttribute("error", e.getMessage());
+                                success = false;
+                            }
                         }
-                    } while (auxMueblesFabrica<cantidadFabricar && success!=false);
+                    } while (auxMueblesFabrica < cantidadFabricar && success != false);
 
                     if (success) {
                         conexion.commit();
                         request.setAttribute("success", true);
                     }
-                    
+
                 } catch (SQLException e) {
                     request.setAttribute("error", "Error en el formato de la cantidad");
                 } finally {
@@ -116,10 +122,9 @@ public class ControladorEnsambleMueble extends HttpServlet {
         ArrayList<EnsambleMueble> listaEnsambles = null;
         if (filtro.equals("")) {
             listaEnsambles = modeloMueble.getListaEnsambles();
-        }
-        else{
+        } else {
             listaEnsambles = modeloMueble.getListaEnsambles(filtro);
-        }    
+        }
         ArrayList<String> listaNombreMuebles = modeloMueble.getNombreMuebles();
 
         request.setAttribute("ensambles", listaEnsambles);

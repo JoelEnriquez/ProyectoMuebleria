@@ -78,8 +78,13 @@ public class ModificarPiezas extends HttpServlet {
                 modeloPieza.actualizarPieza(id, tipoPieza, costo);
                 request.setAttribute("success", true);
             } catch (SQLException e) {
+                if (e.getErrorCode()==1406) {
+                    request.setAttribute("error", "Se ha sobrepasado el numero de caracteres permitidos");
+                } else{
+                    request.setAttribute("error", "No se ha podido realizar el registro");
+                }
                 request.setAttribute("error_change", true);
-                request.setAttribute("error", "No se ha podido realizar el registro");
+                
             }          
             
             redirigirModificar(request, response, id);

@@ -39,7 +39,7 @@ public class LecturaEnsamblePieza {
                     agregarEnsamblePieza(nuevoEnsamblePieza, datosEnsamblePieza.getNumLinea());
                 } catch (NumberFormatException e) {
                     listaErrores.add(new Error(datosEnsamblePieza.getNumLinea(), "Formato", "No hay un formato apropiado de la cantidad"));
-                } catch (NullPointerException nullP){
+                } catch (NullPointerException nullP) {
                     listaErrores.add(new Error(datosEnsamblePieza.getNumLinea(), "Formato", "Alguno de los datos venian vacios"));
                 }
             } else {
@@ -58,11 +58,18 @@ public class LecturaEnsamblePieza {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode()==1452) {
-                listaErrores.add(new Error(numeroLinea, "Logico", "La llave foranea no tiene un apunte correcto"));
-            } else {
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
-            }    
+            switch (e.getErrorCode()) {
+                case 1452:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "La llave foranea no tiene un apunte correcto"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el ensamble"));
+                    break;
+            }
         }
     }
 

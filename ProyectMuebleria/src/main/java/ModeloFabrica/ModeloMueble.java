@@ -7,12 +7,10 @@ package ModeloFabrica;
 
 import DBConnection.Conexion;
 import EntidadesMuebleria.EnsambleMueble;
-import EntidadesMuebleria.EnsamblePieza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 public class ModeloMueble {
     
     private final Connection conexion = Conexion.getConexion();
-    private final String queryListaEnsamble = "SELECT * FROM Ensamble_Mueble";
+    private final String queryListaEnsamble = "SELECT id, fecha_ensamble,precio_ensamble,nombre_usuario,nombre_mueble FROM Ensamble_Mueble";
     private final String queryNombreMuebles = "SELECT nombre FROM Mueble";
     
     public ArrayList<EnsambleMueble> getListaEnsambles(){
@@ -88,7 +86,11 @@ public class ModeloMueble {
 
             ps.execute();
         } catch (SQLException e) {
-            throw new SQLException("No se ha podido realizar el ensamble");
+            if (e.getErrorCode()==1406) {
+                throw new SQLException("Se sobrepasa la cantidad de caracteres permitidos");
+            } else {
+                throw new SQLException("No se ha podido realizar el ensamble");
+            }
         }
     }
 }

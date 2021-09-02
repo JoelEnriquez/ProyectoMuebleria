@@ -55,12 +55,18 @@ public class LecturaMueble {
 
             ps.execute();
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                //Llave Primaria Duplicada
-                listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria del mueble"));
-            }
-            else{
-                listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el mueble correctamente"));
+            switch (e.getErrorCode()) {
+                case 1062:
+                    //Llave Primaria Duplicada
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se duplica la llave primaria del mueble"));
+                    break;
+                case 1406:
+                    //Caracteres excedidos permitidos
+                    listaErrores.add(new Error(numeroLinea, "Logico", "Se sobrepasa la cantidad de caracteres"));
+                    break;
+                default:
+                    listaErrores.add(new Error(numeroLinea, "Logico", "No se ha podido ingresar el mueble correctamente"));
+                    break;
             }
         }
     }
