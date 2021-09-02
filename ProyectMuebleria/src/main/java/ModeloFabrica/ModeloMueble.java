@@ -62,6 +62,23 @@ public class ModeloMueble {
         return listaEnsambles;
     }
     
+    public ArrayList<EnsambleMueble> getListaEnsamblesSinVenta(){
+        ArrayList<EnsambleMueble> listaEnsambles = new ArrayList<>();
+        try (PreparedStatement ps = conexion.prepareStatement(queryListaEnsamble);
+                ResultSet rs = ps.executeQuery()){
+            while (rs.next()) {
+                listaEnsambles.add(new EnsambleMueble(
+                        rs.getInt(1), 
+                        rs.getDate(2).toLocalDate(), 
+                        rs.getDouble(3), 
+                        rs.getString(4), 
+                        rs.getString(5)));
+            }         
+        } catch (Exception e) {
+        }
+        return listaEnsambles;
+    }
+    
     public ArrayList<String> getNombreMuebles(){
         ArrayList<String> nombreMuebles = new ArrayList<>();
         try (PreparedStatement ps = conexion.prepareStatement(queryNombreMuebles);

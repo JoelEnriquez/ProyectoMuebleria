@@ -5,6 +5,7 @@
  */
 package ControladoresVenta;
 
+import ModeloFabrica.ModeloMueble;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,17 +20,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RealizarVenta", urlPatterns = {"/RealizarVenta"})
 public class RealizarVenta extends HttpServlet {
 
+    private ModeloMueble modeloMueble = new ModeloMueble();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        modeloMueble.getListaEnsambles();
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
+    }
+    
+    private void mostrarEnsambles(){
+        
     }
 
     
