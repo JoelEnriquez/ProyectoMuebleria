@@ -10,7 +10,7 @@
                     <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/RegistrarVenta?show=sale">Realizar Venta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ControladorEnsambleMueble">Area de Devoluciones</a>
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/AreaVenta/Devolucion.jsp">Area de Devoluciones</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,7 +27,6 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarVenta?show=stock">Consulta de Muebles Disponibles en Sala de Venta</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario">Consultas de detalles de factura de cliente</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventari">Consultas de ventas del dia</a></li>
                     </ul>
                 </li>

@@ -3,9 +3,13 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/ComprasCliente.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/RealizarVenta.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ModeloLogicaEnsamble.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloVenta/ValidarSesionVenta.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesVenta/DetalleCompraNombres.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/Pieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesFabrica/StockPieza.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/Devolucion.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/DBConnection/Conexion.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloVenta/ModeloDevolucion.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModelosInicio/VerificarDatos.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaCliente.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/DatosLinea.java
@@ -13,6 +17,7 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesPersona/Usuario.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/ComprobarDatos.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/ControladorNIT.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesVenta/DetalleCompra.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/AsignacionPrecio.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/CargaArchivo.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaMueble.java

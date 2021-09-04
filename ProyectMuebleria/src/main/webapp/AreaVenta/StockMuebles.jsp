@@ -4,17 +4,20 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloVenta.ValidarSesionVenta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registrar Venta</title>
+        <title>Stock de Muebles</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSSExtra/RegistrarVenta.css"/>
         <jsp:include page="../Extra/CSS.jsp"/>   
     </head>
     <body>
+        <%ValidarSesionVenta.validarSesion(request, response);%>
+        
         <jsp:include page="/NavBars/NavBarVenta.jsp"/>
 
         <div class="container">

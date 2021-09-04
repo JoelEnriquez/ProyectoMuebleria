@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloVenta.ValidarSesionVenta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,23 +16,19 @@
     </head>
     <body>        
         <%--Se valida que sea un empleado venta y tenga sesion activa el que ingrese al formulario, sino regresar al inicio--%>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            if (session.getAttribute("nombre") == null || !session.getAttribute("persona").equals("Venta")) {
-                response.sendRedirect(request.getContextPath() + "/ControlLogOut");
-            } 
-            else if (session.getAttribute("id_compras") == null) {
-                response.sendRedirect(request.getContextPath() + "/ControlLogOut");
-            }
-        %>
+        <%ValidarSesionVenta.validarSesion(request, response);
+            if (session.getAttribute("id_compras") == null) {
+                response.sendRedirect(request.getContextPath() + "/RegistrarVenta");
+            }%>
+
 
         <div class="container">
             <div class="row align-items-center mt-5" style="height: 600px">
                 <div class="col-12">
-                    
+
                     <c:if test="${error!=null}"> <h5 class="alert alert-danger mb-5" style="text-align: center">${error}</h5></c:if>
-                    
-                    <form action="${pageContext.request.contextPath}/RegistrarCliente" method="POST">
+
+                        <form action="${pageContext.request.contextPath}/RegistrarCliente" method="POST">
 
                         <h3 style="text-align: center" class="mb-5 display-6">Registrar Info Cliente</h3>
                         <div class="input-group mb-3 justify-content-between">
@@ -73,7 +70,7 @@
                 </div>
             </div>
         </div>
-        
+
         <jsp:include page="/Extra/JS.jsp"/>
     </body>
 </html>

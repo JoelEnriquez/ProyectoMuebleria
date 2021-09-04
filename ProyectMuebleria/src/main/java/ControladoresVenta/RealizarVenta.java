@@ -5,6 +5,7 @@
  */
 package ControladoresVenta;
 
+import EntidadesVenta.DetalleCompra;
 import EntidadesVenta.Factura;
 import ModeloFabrica.ModeloMueble;
 import ModeloVenta.ModeloVenta;
@@ -37,18 +38,18 @@ public class RealizarVenta extends HttpServlet {
         LocalDate fechaCompra = LocalDate.now();
         String costo = request.getParameter("costo");
         Double costoVenta=0.0;
-        boolean devolucion = false;
         String NIT = request.getParameter("NIT");
         String nombreUsuario = request.getSession().getAttribute("nombre").toString();
         
         try {
             costoVenta = Double.valueOf(costo); //Transformar al formato correcto
             
-            Factura factura = new Factura(fechaCompra, costoVenta, devolucion, NIT, nombreUsuario);
+            Factura factura = new Factura(fechaCompra, costoVenta, NIT, nombreUsuario);
             int idFactura =  modeloVenta.agregarFactura(factura); //Obtenemos la ultima llave primaria generada
             
             for (Integer idCompra : idCompras) {
-                modeloVenta.agregarIdFacturaEnsamble(idFactura, idCompra);
+                DetalleCompra detalleCompra = new DetalleCompra(idCompra, modeloVenta.precioMueblePorId(idCompra), false, idFactura);
+                modeloVenta.agregarDetalleCompra(detalleCompra);
             }
             
             success = true;

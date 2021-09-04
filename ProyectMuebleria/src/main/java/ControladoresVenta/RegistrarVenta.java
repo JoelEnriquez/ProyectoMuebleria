@@ -28,6 +28,8 @@ public class RegistrarVenta extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        validarSession(request, response);
+        
         String idEliminar = "";
         if (request.getParameter("eliminarId") != null) {
             idEliminar = request.getParameter("eliminarId");
@@ -41,6 +43,7 @@ public class RegistrarVenta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        validarSession(request, response);
         String id = request.getParameter("id_mueble");
         boolean success = true;
         ArrayList<Integer> idCompras;
@@ -73,7 +76,7 @@ public class RegistrarVenta extends HttpServlet {
             }
         }
 
-        request.getSession().setAttribute("id_compras", idCompras);
+        request.getSession().setAttribute("id_compras", idCompras); //Agregar el id al carrito
         mostrarEnsambles(request, response, "","sale");
 
     }
@@ -124,5 +127,20 @@ public class RegistrarVenta extends HttpServlet {
             }
         }
         return ensambles;
+    }
+    
+    /**
+     * Verifica sesion existente
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    private void validarSession(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        if (request.getSession().getAttribute("nombre") == null || !request.getSession().getAttribute("persona").equals("Venta")) {
+            response.sendRedirect(request.getContextPath() + "/ControlLogOut");
+        }
     }
 }

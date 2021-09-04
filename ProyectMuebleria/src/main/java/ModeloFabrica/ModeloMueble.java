@@ -21,8 +21,9 @@ import java.util.ArrayList;
 public class ModeloMueble {
 
     private final Connection conexion = Conexion.getConexion();
-    private final String queryEnsamblesSinVenta = "SELECT EM.id, M.nombre, M.precio FROM Ensamble_Mueble EM INNER JOIN Mueble M ON EM.nombre_mueble=M.nombre WHERE isnull(id_factura)";
-    private final String queryListaEnsamble = "SELECT id, fecha_ensamble,precio_ensamble,nombre_usuario,nombre_mueble FROM Ensamble_Mueble";
+    private final String queryNombrePorIdEnsamble = "SELECT nombre_mueble FROM Ensamble_Mueble WHERE id = ?";
+    private final String queryEnsamblesSinVenta = "SELECT EM.id, M.nombre, M.precio FROM Ensamble_Mueble EM INNER JOIN Mueble M ON EM.nombre_mueble=M.nombre AND EM.id NOT IN (SELECT id_ensamble FROM Detalle_Compra)";
+    private final String queryListaEnsamble = "SELECT * FROM Ensamble_Mueble";
     private final String queryNombreMuebles = "SELECT nombre FROM Mueble";
 
     public ArrayList<EnsambleMueble> getListaEnsambles() {
@@ -83,7 +84,7 @@ public class ModeloMueble {
     }
 
     public StockEnsamble getEnsambleStockPorId(int id) {
-        try ( PreparedStatement ps = conexion.prepareStatement(queryEnsamblesSinVenta + " AND EM.id = ?")) {
+        try ( PreparedStatement ps = conexion.prepareStatement(queryEnsamblesSinVenta+" AND EM.id = ?")) {
             ps.setInt(1, id);
             try ( ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -130,8 +131,13 @@ public class ModeloMueble {
         }
     }
 
+    /**
+     * Comprueba si existe ese id de ensamble en stock
+     * @param idEnsamble
+     * @return 
+     */
     public int existenciaId(Integer idEnsamble) {
-        String query = "SELECT COUNT(*) FROM Ensamble_Mueble WHERE isnull(id_factura) AND id=?";
+        String query = "SELECT COUNT(*) FROM Ensamble_Mueble EM LEFT JOIN Detalle_Compra DC ON EM.id=DC.id_ensamble where EM.id = ?";
         
         try (PreparedStatement ps = conexion.prepareStatement(query)){
             ps.setInt(1, idEnsamble);
@@ -144,6 +150,20 @@ public class ModeloMueble {
         } catch (Exception e) {
         }
         return 0;
+    }
+    
+    public String nombrePorIdEnsamble(int idEnsamble){
+        try (PreparedStatement ps = conexion.prepareStatement(queryNombrePorIdEnsamble)){
+            ps.setInt(1, idEnsamble);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return "";
     }
     
     

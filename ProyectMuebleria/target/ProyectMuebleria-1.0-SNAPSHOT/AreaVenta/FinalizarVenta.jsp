@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloVenta.ValidarSesionVenta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,16 +17,11 @@
     </head>
     <body>
         <%--Se valida que sea un empleado venta y tenga sesion activa el que ingrese al formulario, sino regresar al inicio--%>
-        <%/*
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            if (session.getAttribute("nombre") == null || !session.getAttribute("persona").equals("Venta")) {
-                response.sendRedirect(request.getContextPath() + "/Inicio/Login.jsp");
-            } else if (session.getAttribute("id_compras") == null) {
-                response.sendRedirect(request.getContextPath() + "/RegistrarVenta");
-            } else if (request.getAttribute("cliente") == null) {
-                response.sendRedirect(request.getContextPath() + "/RegistrarVenta");
+        <%
+            ValidarSesionVenta.validarSesion(request, response);
+            if (session.getAttribute("id_compras") == null || request.getAttribute("cliente") == null) {
+               response.sendRedirect(request.getContextPath() + "/RegistrarVenta");
             }
-             */
         %>
 
         <c:if test="${success!=null}">

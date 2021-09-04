@@ -5,6 +5,9 @@
  */
 package ControladoresVenta;
 
+import EntidadesPersona.Cliente;
+import EntidadesVenta.DetalleCompra;
+import EntidadesVenta.DetalleCompraNombres;
 import EntidadesVenta.Factura;
 import ModeloVenta.ModeloNIT;
 import ModeloVenta.ReportesVenta;
@@ -31,9 +34,18 @@ public class ComprasCliente extends HttpServlet {
     private ModeloNIT modeloNIT = new ModeloNIT();
 
     @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idFactura = Integer.parseInt(request.getParameter("id"));
+        
+        //Obtener los detalles de la factura en base al id
+        ArrayList<DetalleCompraNombres> detallesFactura = reportesVenta.detallesCompraPorIdFactura(idFactura);
+        request.setAttribute("detalles", detallesFactura);
+        request.getRequestDispatcher("AreaVenta/DetallesFactura.jsp").forward(request, response);
+    }
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String NIT = request.getParameter("NIT");
         String fecha1 = request.getParameter("fecha_1");
         String fecha2 = request.getParameter("fecha_2");
@@ -49,6 +61,7 @@ public class ComprasCliente extends HttpServlet {
             if (modeloNIT.existenciaNIT(NIT) == 0) {
                 request.setAttribute("error", "No existe dicho NIT");
             } else {
+                Cliente cliente = modeloNIT.getPorNIT(NIT);
                 //Comprobar que vengan ambas fechas o ninguna
                 if ((fecha1.isEmpty() && !fecha2.isEmpty() || (!fecha1.isEmpty() && fecha2.isEmpty()))) {
                     request.setAttribute("error", "Tiene que venir sin fecha, o con ambas fechas");
@@ -72,6 +85,7 @@ public class ComprasCliente extends HttpServlet {
                         }
                     }
                     request.setAttribute("compras", comprasCliente);
+                    request.setAttribute("cliente", cliente);
                 }
             }
         }

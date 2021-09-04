@@ -80,6 +80,14 @@
                     <% }%>
                 </div>
                 <div class="col errores col-5" style="background: #f3f3f3;height: 600px">
+                    <div class="row justify-content-first mt-3">
+                        <div class="col-5 text-center">
+                            <label for="inputFiltro">Busqueda por Filtro:</label>
+                        </div>
+                        <div class="col-5">
+                            <input class="form-control" id="inputFiltro" type="text" placeholder="Filtro">
+                        </div>
+                    </div>
                     <div style="height: 600px; width: 100%; overflow-y: scroll;">
                         <table class="table table-striped table-bordered mt-5" style="text-align: center">
                             <thead class="table-dark">
@@ -89,7 +97,7 @@
                                     <th class="th-sm">Mensaje de Error</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablaFiltro">
                             <c:forEach items="${errores}" var="error">
                                 <tr>
                                     <td>${error.numeroLineaError}</td>
@@ -113,5 +121,6 @@
         <% }%> 
 
         <jsp:include page="/Extra/JS.jsp"/>
+        <script src="${pageContext.request.contextPath}/JSExtra/FuncionFiltro.js"></script>
     </body>
 </html>

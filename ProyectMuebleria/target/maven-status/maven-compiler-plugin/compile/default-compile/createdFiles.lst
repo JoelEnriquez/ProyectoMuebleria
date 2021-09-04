@@ -16,10 +16,13 @@ EntidadesFabrica/StockPieza.class
 Lectura/LecturaUsuario.class
 Lectura/LecturaEnsambleMueble.class
 ControladoresInicio/ControlLogOut.class
+ModeloVenta/ModeloDevolucion.class
 Lectura/LecturaCliente.class
 EntidadesMuebleria/Pieza.class
+ControladoresVenta/Devolucion.class
 ModeloFabrica/ModeloPieza.class
 ControladoresFabrica/RegistrarPiezas.class
+EntidadesVenta/DetalleCompra.class
 ModelosInicio/LoginModel.class
 ModeloFabrica/ModeloLogicaEnsamble.class
 ControladoresFabrica/ControladorEnsambleMueble.class
@@ -33,10 +36,12 @@ EntidadesMuebleria/Mueble.class
 ModeloVenta/ModeloVenta.class
 ControladoresVenta/RealizarVenta.class
 ControladoresFabrica/ConsultarInventario.class
+ModeloVenta/ValidarSesionVenta.class
 ModelosInicio/VerificarDatos.class
 ModeloFabrica/ModeloMueble.class
 Error/Error.class
 EntidadesPersona/Cliente.class
 EntidadesMuebleria/EnsambleMueble.class
 EntidadesVenta/StockEnsamble.class
+EntidadesVenta/DetalleCompraNombres.class
 EntidadesMuebleria/AsignacionPrecio.class

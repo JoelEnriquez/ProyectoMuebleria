@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloVenta.ValidarSesionVenta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,7 @@
         <jsp:include page="../Extra/CSS.jsp"/>
     </head>
     <body>
+        <%ValidarSesionVenta.validarSesion(request, response);%>
         <jsp:include page="/NavBars/NavBarVenta.jsp"/>
         <div class="container">
             <div class="row">

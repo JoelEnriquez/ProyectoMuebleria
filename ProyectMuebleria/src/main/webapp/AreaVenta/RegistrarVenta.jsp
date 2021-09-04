@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloVenta.ValidarSesionVenta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +16,7 @@
         <jsp:include page="../Extra/CSS.jsp"/>   
     </head>
     <body>
+        <%ValidarSesionVenta.validarSesion(request, response);}%>
         <jsp:include page="/NavBars/NavBarVenta.jsp"/>
 
         <div class="container">
@@ -69,7 +71,7 @@
                                             <td>${ensamble.id}</td>
                                             <td>${ensamble.nombre}</td>
                                             <td>${ensamble.precio}</td>
-                                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/RegistrarVenta?eliminarId=${ensamble.id}">
+                                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/RegistrarVenta?eliminarId=${ensamble.id}&show=sale">
                                                     Cancelar
                                                 </a>
                                             </td>

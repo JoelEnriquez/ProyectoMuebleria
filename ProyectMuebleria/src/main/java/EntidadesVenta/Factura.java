@@ -16,23 +16,20 @@ public class Factura {
     private int idFactura;
     private LocalDate fechaCompra;
     private Double precioCompra;
-    private boolean devolucion;
     private String NITCliente;
     private String nombreUsuario;
 
-    public Factura(int idFactura, LocalDate fechaCompra, Double precioCompra, boolean devolucion, String NITCliente, String nombreUsuario) {
+    public Factura(int idFactura, LocalDate fechaCompra, Double precioCompra, String NITCliente, String nombreUsuario) {
         this.idFactura = idFactura;
         this.fechaCompra = fechaCompra;
         this.precioCompra = precioCompra;
-        this.devolucion = devolucion;
         this.NITCliente = NITCliente;
         this.nombreUsuario = nombreUsuario;
     }
 
-    public Factura(LocalDate fechaCompra, Double precioCompra, boolean devolucion, String NITCliente, String nombreUsuario) {
+    public Factura(LocalDate fechaCompra, Double precioCompra, String NITCliente, String nombreUsuario) {
         this.fechaCompra = fechaCompra;
         this.precioCompra = precioCompra;
-        this.devolucion = devolucion;
         this.NITCliente = NITCliente;
         this.nombreUsuario = nombreUsuario;
     }
@@ -42,14 +39,12 @@ public class Factura {
      * @param idFactura
      * @param fechaCompra
      * @param precioCompra
-     * @param devolucion
      * @param NITCliente 
      */
-    public Factura(int idFactura, LocalDate fechaCompra, Double precioCompra, boolean devolucion, String NITCliente) {
+    public Factura(int idFactura, LocalDate fechaCompra, Double precioCompra, String NITCliente) {
         this.idFactura = idFactura;
         this.fechaCompra = fechaCompra;
         this.precioCompra = precioCompra;
-        this.devolucion = devolucion;
         this.NITCliente = NITCliente;
     }
     
@@ -77,14 +72,6 @@ public class Factura {
 
     public void setPrecioCompra(Double precioCompra) {
         this.precioCompra = precioCompra;
-    }
-
-    public boolean isDevolucion() {
-        return devolucion;
-    }
-
-    public void setDevolucion(boolean devolucion) {
-        this.devolucion = devolucion;
     }
 
     public String getNITCliente() {
