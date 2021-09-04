@@ -22,7 +22,11 @@ public class ControlLogOut extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Se eliminan los atributos y se redirige al Login
         request.getSession().removeAttribute("nombre");
+        request.getSession().removeAttribute("persona");
+        request.getSession().removeAttribute("id_compras");
+        
         response.sendRedirect(request.getContextPath()+"/Inicio/Login.jsp");
     }
 }

@@ -1,0 +1,24 @@
+
+.table-data {
+    text-align: center;
+    height: 600px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+h3 {
+    text-align: center;
+}
+
+.div-registro {
+    background: #f2f2f2;
+}
+
+.table {
+    text-align: center;
+}
+
+.table-factura {
+    width: 100%;
+    overflow-y: scroll;
+}

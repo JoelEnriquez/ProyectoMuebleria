@@ -33,14 +33,17 @@ public class Login extends HttpServlet {
         switch (tipoPersona) {
             case 1:
                 request.getSession().setAttribute("nombre", nombre);
+                request.getSession().setAttribute("persona","Fabrica");
                 request.getRequestDispatcher("/AreaFabrica/InicioFabrica.jsp").forward(request, response);
                 break;
             case 2:
                 request.getSession().setAttribute("nombre", nombre);
+                request.getSession().setAttribute("persona","Financiera");
                 request.getRequestDispatcher("/AreaFinanciera/InicioFinanciera.jsp").forward(request, response);
                 break;
             case 3:
                 request.getSession().setAttribute("nombre", nombre);
+                request.getSession().setAttribute("persona","Venta");
                 request.getRequestDispatcher("/AreaVenta/InicioVenta.jsp").forward(request, response);
                 break;
             case 0:

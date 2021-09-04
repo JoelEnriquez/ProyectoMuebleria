@@ -21,8 +21,7 @@ public class Lector {
 
     public void leerTXT(InputStream inputStream) {
 
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"))) {
 
             String linea;
             int lineaAnalizada = 0; //Apoyo para indicar la linea del error

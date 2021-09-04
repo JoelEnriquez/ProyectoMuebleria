@@ -7,19 +7,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/RealizarVenta">Realizar Venta</a>
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/RegistrarVenta?show=sale">Realizar Venta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ControladorEnsambleMueble">Area de Devoluciones</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Piezas
+                        Reportes Con Intervalo
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarPiezas">Registrar</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario?op=modificar">Modificar</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AreaVenta/ComprasCliente.jsp">Consultas de compras de cliente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario">Consultas de devoluciones de cliente</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ControladorEnsambleMueble">Ensamblar y Muebles Creados</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Reportes Sin Intervalo
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarVenta?show=stock">Consulta de Muebles Disponibles en Sala de Venta</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario">Consultas de detalles de factura de cliente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventari">Consultas de ventas del dia</a></li>
+                    </ul>
                 </li>
             </ul>
             <span class="d-flex navbar-text text-white">
