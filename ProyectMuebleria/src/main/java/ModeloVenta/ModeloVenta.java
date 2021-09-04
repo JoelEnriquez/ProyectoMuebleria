@@ -69,4 +69,6 @@ public class ModeloVenta {
             throw new SQLException("Error al agregar id factura");
         }
     }
+    
+    
 }

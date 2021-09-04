@@ -7,6 +7,7 @@ package ModeloVenta;
 
 import DBConnection.Conexion;
 import EntidadesVenta.Factura;
+import EntidadesVenta.StockEnsamble;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,4 +65,11 @@ public class ReportesVenta {
         }
         return listaCompras;
     }
+    
+    public ArrayList<StockEnsamble> detallesCompraPorIdFactura(int idFactura){
+        
+        return null;
+    }
+    
+    
 }
