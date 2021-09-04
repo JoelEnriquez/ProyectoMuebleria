@@ -1,0 +1,28 @@
+
+.datos_cliente {
+    text-align: center;
+    
+}
+
+h3 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-control {
+    text-align: center;
+}
+
+.table-factura {
+    width: 100%;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.resumen {
+    background: #8abdb8;
+    height: 200px;
+}

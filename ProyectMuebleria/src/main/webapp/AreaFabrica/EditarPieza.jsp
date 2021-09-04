@@ -20,6 +20,7 @@
                 <div class="col-12">
                     <c:if test="${success!=null}"> <p class="alert alert-success mb-5" style="text-align: center"> Cambio Generado Exitosamente </p></c:if>  
                     <c:if test="${error_change!=null}"> <p class="alert alert-danger mb-5" style="text-align: center">${error}</p></c:if>
+                    
                     <form action="${pageContext.request.contextPath}/ModificarPiezas" method="POST">
                         <input type="hidden" id="id" name="id" value="${pieza.id}">
                         <h3 style="text-align: center">Pieza con id#${pieza.id}</h3>
