@@ -19,9 +19,6 @@
         <%--Se valida que sea un empleado venta y tenga sesion activa el que ingrese al formulario, sino regresar al inicio--%>
         <%
             ValidarSesionVenta.validarSesion(request, response);
-            if (session.getAttribute("id_compras") == null || request.getAttribute("cliente") == null) {
-               response.sendRedirect(request.getContextPath() + "/RegistrarVenta");
-            }
         %>
 
         <c:if test="${success!=null}">

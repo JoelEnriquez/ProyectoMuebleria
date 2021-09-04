@@ -8,11 +8,14 @@ and open the template in the editor.
     Author     : joel
 */
 
-h3,p,input,table {text-align: center;}
+h3,p,input,table,h6 {text-align: center;}
 
 .table-data {
     height: 450px;
     width: 100%;
     overflow-y: scroll;
 }
+
+h6 {background-color: mediumseagreen}
+
 

@@ -21,6 +21,9 @@ import java.util.ArrayList;
  */
 public class ModeloDevolucion {
     
+    private final String querySetPrecioVacio = "UPDATE Detalle_Compra SET devolucion = 1 WHERE id_ensamble = ?";
+    private final String querySetDevolucionTrue = "UPDATE Detalle_Compra SET precio = 0 WHERE id_ensamble = ?";
+    private final String queryExistenciaDetails = "SELECT COUNT(*) FROM Detalle_Compra WHERE id_ensamble = ?";
     private final String queryDetailsFacturaSinDevolucion = "SELECT * FROM Detalle_Compra WHERE devolucion = 0";
     private final String queryExistenciaFactura = "SELECT COUNT(*) FROM Factura WHERE id = ?";
     private final String queryFechaCompra = "SELECT fecha_compra FROM Factura WHERE id = ?";
@@ -98,5 +101,37 @@ public class ModeloDevolucion {
         } catch (Exception e) {
         }
         return detallesCompra;
+    }
+    
+    public int verificarExistenciaDetalleCompra(int id){
+        try (PreparedStatement ps = conexion.prepareStatement(queryExistenciaDetails)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+    public void setDevolucionTrue(int id){
+        try (PreparedStatement ps = conexion.prepareStatement(querySetDevolucionTrue)){
+            ps.setInt(1, id);
+            
+            ps.execute();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void setPrecioVacio(int id){
+        try (PreparedStatement ps = conexion.prepareStatement(querySetPrecioVacio)){
+            ps.setInt(1, id);
+            
+            ps.execute();
+        } catch (Exception e) {
+        }
     }
 }

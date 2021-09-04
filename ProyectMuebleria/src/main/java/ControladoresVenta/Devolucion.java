@@ -75,7 +75,26 @@ public class Devolucion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
+        int idDevolucion;
         
+        try {
+            idDevolucion = Integer.parseInt(id);
+            
+            //Verificar existencia id
+            if (modeloDevolucion.verificarExistenciaDetalleCompra(idDevolucion)==0) {
+                request.setAttribute("error", "No existe un ensamble con dicho id");
+            }
+            else{
+                //Set Precio 0 y devolucion true
+                modeloDevolucion.setDevolucionTrue(idDevolucion);
+                modeloDevolucion.setPrecioVacio(idDevolucion);
+                request.setAttribute("success", true);
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "El id viene en formato incorrecto");
+        }
+        request.getRequestDispatcher("AreaVenta/Devolucion.jsp").forward(request, response);
     }
 
 }

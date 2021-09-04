@@ -19,6 +19,9 @@
         <jsp:include page="/NavBars/NavBarVenta.jsp"/>
 
         <div class="container">
+            <c:if test="${success!=null}">
+                <h6 class="display-6">Se ha realizado la devolucion de forma exitosa</h6>        
+            </c:if>
             <div class="row justify-content-around mt-5">
                 <div class="col-6 align-self-first">
                     <c:if test="${error!=null}"> <p class="alert alert-danger">${error}</p></c:if>
