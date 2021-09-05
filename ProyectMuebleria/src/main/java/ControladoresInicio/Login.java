@@ -5,6 +5,7 @@
  */
 package ControladoresInicio;
 
+import Encriptar.Encriptacion;
 import ModelosInicio.LoginModel;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,15 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
 
+    private final Encriptacion encriptacion = new Encriptacion();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String nombre = request.getParameter("nombre");
         String password = request.getParameter("password");
+        String passwordEncrypt = "";
+        try {
+            passwordEncrypt = encriptacion.encriptar(password);
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
 
         LoginModel loginM = new LoginModel();
-        int tipoPersona = loginM.devolverTipoPersona(nombre, password);
+        int tipoPersona = loginM.devolverTipoPersona(nombre, passwordEncrypt);
         //Verificamos que tipo de usuario es y buscamos en la tabla respectiva
         switch (tipoPersona) {
             case 1:

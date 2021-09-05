@@ -79,8 +79,8 @@
                                         <td>${detalle.costoMueble}</td>
                                         <td>
                                             <a class="btn btn-warning"
-                                               <!-- Mandar id ensamble para setear 0 su coste y devolucion en 1 -->
-                                                href="${pageContext.request.contextPath}/Devolucion?id=${detalle.idEnsamble}">
+                                               <%--Mandar id ensamble para setear 0 su coste y devolucion en 1 --%>
+                                                href="${pageContext.request.contextPath}/Devolucion?id=${detalle.idEnsamble}&idFactura=${factura.idFactura}">
                                                 Ejecutar Devolucion
                                             </a>
                                         </td>

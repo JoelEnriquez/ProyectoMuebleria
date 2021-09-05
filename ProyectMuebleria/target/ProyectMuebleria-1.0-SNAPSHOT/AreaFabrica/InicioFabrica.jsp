@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@page import="ModeloFabrica.ValidarSesionFabrica"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,11 +14,12 @@
         <jsp:include page="/Extra/CSS.jsp"/>
     </head>
     <body>
+        <% ValidarSesionFabrica.validarSesion(request, response);%>
         <jsp:include page="/NavBars/NavBarFabrica.jsp"/>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <img src="${pageContext.request.contextPath}/resources/Foto Fabrica.jpg" alt="150">
+                    <img class="img-fluid rounded img-thumbnail" src="${pageContext.request.contextPath}/resources/Foto Fabrica.jpg" alt="150">
                 </div>
             </div>
         </div>

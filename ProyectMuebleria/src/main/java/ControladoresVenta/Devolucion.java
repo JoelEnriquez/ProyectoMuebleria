@@ -8,6 +8,7 @@ package ControladoresVenta;
 import EntidadesVenta.DetalleCompraNombres;
 import EntidadesVenta.Factura;
 import ModeloVenta.ModeloDevolucion;
+import ModeloVenta.ModeloVenta;
 import ModeloVenta.ReportesVenta;
 import ModeloVenta.ValidarSesionVenta;
 import java.io.IOException;
@@ -29,13 +30,14 @@ import javax.servlet.http.HttpServletResponse;
 public class Devolucion extends HttpServlet {
 
     private ReportesVenta reportesVenta = new ReportesVenta();
+    private ModeloVenta modeloVenta = new ModeloVenta();
     private ModeloDevolucion modeloDevolucion = new ModeloDevolucion();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ValidarSesionVenta.validarSesion(request, response);
-        
+
         String idFact = request.getParameter("idFactura");
         int idFactura = 0;
 
@@ -59,7 +61,7 @@ public class Devolucion extends HttpServlet {
                         Factura factura = modeloDevolucion.getFacturaPorID(idFactura);
                         //Obtener los detalles de la factura en base al id
                         ArrayList<DetalleCompraNombres> detallesFactura = modeloDevolucion.detallesCompraSinDevolucion(idFactura);
-                        
+
                         request.setAttribute("detalles", detallesFactura);
                         request.setAttribute("factura", factura);
                     }
@@ -76,20 +78,29 @@ public class Devolucion extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
+        String idFact = request.getParameter("idFactura");
         int idDevolucion;
-        
+        int idFactura;
         try {
             idDevolucion = Integer.parseInt(id);
-            
-            //Verificar existencia id
-            if (modeloDevolucion.verificarExistenciaDetalleCompra(idDevolucion)==0) {
-                request.setAttribute("error", "No existe un ensamble con dicho id");
-            }
-            else{
-                //Set Precio 0 y devolucion true
-                modeloDevolucion.setDevolucionTrue(idDevolucion);
-                modeloDevolucion.setPrecioVacio(idDevolucion);
-                request.setAttribute("success", true);
+            idFactura = Integer.parseInt(idFact);
+
+            if (modeloDevolucion.verificarExistenciaFactura(idFactura) == 0) {
+                request.setAttribute("error", "No existe una factura con dicho id");
+            } else {
+                //Verificar existencia id
+                if (modeloDevolucion.verificarExistenciaDetalleCompra(idDevolucion) == 0) {
+                    request.setAttribute("error", "No existe un ensamble con dicho id");
+                } else {
+                    Double costoFactura = modeloVenta.getCostoTotalFactura(idFactura); //Costo de factura
+                    Double costoDetalle = modeloVenta.getCostoDetalleCompra(idDevolucion); //Costo de Mueble
+                     
+                    //Set Precio 0 y devolucion true. Ademas, setear el nuevo precio
+                    modeloDevolucion.setDevolucionTrue(idDevolucion);
+                    modeloDevolucion.setPrecioVacio(idDevolucion);
+                    modeloDevolucion.setPrecioActualFactura(costoFactura-costoDetalle, idFactura);
+                    request.setAttribute("success", true);
+                }
             }
         } catch (NumberFormatException e) {
             request.setAttribute("error", "El id viene en formato incorrecto");

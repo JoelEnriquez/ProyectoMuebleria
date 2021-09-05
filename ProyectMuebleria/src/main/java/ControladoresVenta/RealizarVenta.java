@@ -48,7 +48,7 @@ public class RealizarVenta extends HttpServlet {
             int idFactura =  modeloVenta.agregarFactura(factura); //Obtenemos la ultima llave primaria generada
             
             for (Integer idCompra : idCompras) {
-                DetalleCompra detalleCompra = new DetalleCompra(idCompra, modeloVenta.precioMueblePorId(idCompra), false, idFactura);
+                DetalleCompra detalleCompra = new DetalleCompra(idCompra, modeloVenta.precioMueblePorId(idCompra), false, false, idFactura);
                 modeloVenta.agregarDetalleCompra(detalleCompra);
             }
             

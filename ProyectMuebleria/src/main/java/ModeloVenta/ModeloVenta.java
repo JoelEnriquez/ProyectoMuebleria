@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -24,8 +23,10 @@ import java.util.ArrayList;
 public class ModeloVenta {
     
     private Connection conexion = Conexion.getConexion();
+    private final String queryGetPrecioFactura = "SELECT precio_compra FROM Factura WHERE id = ?";
+    private final String queryGetPrecioDetalleCompra = "SELECT precio FROM Detalle_Compra WHERE id_ensamble = ?";
     private final String queryPrecioPorIdEnsamble = "SELECT M.precio FROM Mueble M INNER JOIN Ensamble_Mueble EM ON M.nombre = EM.nombre_mueble WHERE EM.id=?";
-    private final String queryAgregarDetalleCompra = "INSERT INTO Detalle_Compra VALUES (?,?,?,?)";
+    private final String queryAgregarDetalleCompra = "INSERT INTO Detalle_Compra VALUES (?,?,?,?,?)";
     private final String queryAgregarFactura = "INSERT INTO Factura (fecha_compra, precio_compra, NIT_Cliente,nombre_usuario) VALUES (?,?,?,?)";
     
     public Double costoCompra (ArrayList<StockEnsamble> carritoCompras){
@@ -65,7 +66,8 @@ public class ModeloVenta {
             ps.setInt(1, detalle.getIdEnsamble());
             ps.setDouble(2, detalle.getCostoMueble());
             ps.setBoolean(3, detalle.isDevolucion());
-            ps.setInt(4, detalle.getIdFactura());
+            ps.setBoolean(4,detalle.isReutilizacionPiezas());
+            ps.setInt(5, detalle.getIdFactura());
             
             ps.execute();
             
@@ -81,6 +83,34 @@ public class ModeloVenta {
     public Double precioMueblePorId(int idEnsamble){
         try (PreparedStatement ps = conexion.prepareStatement(queryPrecioPorIdEnsamble)){
             ps.setInt(1, idEnsamble);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return 0.0;
+    }
+    
+    public Double getCostoTotalFactura(int idFactura){
+        try (PreparedStatement ps = conexion.prepareStatement(queryGetPrecioFactura)){
+            ps.setInt(1, idFactura);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return 0.0;
+    }
+    
+    public Double getCostoDetalleCompra(int idDetalle){
+        try (PreparedStatement ps = conexion.prepareStatement(queryGetPrecioDetalleCompra)){
+            ps.setInt(1, idDetalle);
             
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()) {

@@ -63,7 +63,7 @@ public class ModeloPieza {
         }
     }
 
-    private void aumentarExistencia(String tipoPieza) {
+    public void aumentarExistencia(String tipoPieza) {
         String query = "UPDATE Pieza SET cantidad_stock = cantidad_stock + 1 WHERE tipo = ?";
 
         try ( PreparedStatement ps = conexion.prepareStatement(query)) {

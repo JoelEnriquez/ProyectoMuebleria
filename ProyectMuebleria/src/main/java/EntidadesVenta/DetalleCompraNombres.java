@@ -13,13 +13,13 @@ public class DetalleCompraNombres extends DetalleCompra{
 
     private String nombreMueble;
 
-    public DetalleCompraNombres(String nombreMueble, int idEnsamble, Double costoMueble, boolean devolucion, int idFactura) {
-        super(idEnsamble, costoMueble, devolucion, idFactura);
+    public DetalleCompraNombres(String nombreMueble, int idEnsamble, Double costoMueble, boolean devolucion, boolean reutilizacionPiezas, int idFactura) {
+        super(idEnsamble, costoMueble, devolucion,reutilizacionPiezas, idFactura);
         this.nombreMueble = nombreMueble;
     }
 
-    public DetalleCompraNombres(String nombreMueble, Double costoMueble, boolean devolucion, int idFactura) {
-        super(costoMueble, devolucion, idFactura);
+    public DetalleCompraNombres(String nombreMueble, Double costoMueble, boolean devolucion, boolean reutilizacionPiezas, int idFactura) {
+        super(costoMueble, devolucion,reutilizacionPiezas, idFactura);
         this.nombreMueble = nombreMueble;
     }
     

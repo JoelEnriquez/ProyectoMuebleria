@@ -21,6 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ControladorEnsambleMueble">Ensamblar y Muebles Creados</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ReutilizarPiezas">Rescatar Piezas de Muebles Devueltos</a>
+                </li>
             </ul>
             <span class="d-flex navbar-text text-white">
                 <%="Nombre:" + request.getSession().getAttribute("nombre")%>

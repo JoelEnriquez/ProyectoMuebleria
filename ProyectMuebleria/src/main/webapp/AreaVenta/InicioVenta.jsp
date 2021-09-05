@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col align-self-center">
-                    <img class="img-fluid" src="${pageContext.request.contextPath}/resources/Venta3.jpg" alt="250">
+                    <img class="img-fluid rounded img-thumbnail" src="${pageContext.request.contextPath}/resources/Venta3.jpg" alt="250">
                 </div>
             </div>
         </div>

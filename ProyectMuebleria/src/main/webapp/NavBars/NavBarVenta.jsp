@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AreaVenta/ComprasCliente.jsp">Consultas de compras de cliente</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventario">Consultas de devoluciones de cliente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AreaVenta/DevolucionesCliente.jsp">Consultas de devoluciones de cliente</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -27,7 +27,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarVenta?show=stock">Consulta de Muebles Disponibles en Sala de Venta</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ConsultarInventari">Consultas de ventas del dia</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VentasDia">Consultas de ventas del dia</a></li>
                     </ul>
                 </li>
             </ul>

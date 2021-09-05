@@ -47,6 +47,20 @@ public class Factura {
         this.precioCompra = precioCompra;
         this.NITCliente = NITCliente;
     }
+
+    /**
+     * Contructor reporte devolucion cliente
+     * @param idFactura
+     * @param fechaCompra
+     * @param precioCompra 
+     */
+    public Factura(int idFactura, LocalDate fechaCompra, Double precioCompra) {
+        this.idFactura = idFactura;
+        this.fechaCompra = fechaCompra;
+        this.precioCompra = precioCompra;
+    }
+    
+    
     
     
 

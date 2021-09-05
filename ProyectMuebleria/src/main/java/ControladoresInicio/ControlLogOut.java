@@ -26,7 +26,9 @@ public class ControlLogOut extends HttpServlet {
         request.getSession().removeAttribute("nombre");
         request.getSession().removeAttribute("persona");
         request.getSession().removeAttribute("id_compras");
-        
-        response.sendRedirect(request.getContextPath()+"/Inicio/Login.jsp");
+        request.getSession().removeAttribute("listaRescatar");
+        request.getSession().removeAttribute("idEnsamble");
+
+        response.sendRedirect(request.getContextPath() + "/Inicio/Login.jsp");
     }
 }

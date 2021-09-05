@@ -14,18 +14,22 @@ public class DetalleCompra {
     private int idEnsamble;
     private Double costoMueble;
     private boolean devolucion;
+    private boolean reutilizacionPiezas;
     private int idFactura;
+    
 
-    public DetalleCompra(int idEnsamble, Double costoMueble, boolean devolucion, int idFactura) {
+    public DetalleCompra(int idEnsamble, Double costoMueble, boolean devolucion,boolean reutilizacionPiezas, int idFactura) {
         this.idEnsamble = idEnsamble;
         this.costoMueble = costoMueble;
         this.devolucion = devolucion;
+        this.reutilizacionPiezas = reutilizacionPiezas;
         this.idFactura = idFactura;
     }
 
-    public DetalleCompra(Double costoMueble, boolean devolucion, int idFactura) {
+    public DetalleCompra(Double costoMueble, boolean devolucion,boolean reutilizacionPiezas, int idFactura) {
         this.costoMueble = costoMueble;
         this.devolucion = devolucion;
+        this.reutilizacionPiezas = reutilizacionPiezas;
         this.idFactura = idFactura;
     }
 
@@ -59,6 +63,14 @@ public class DetalleCompra {
 
     public void setIdFactura(int idFactura) {
         this.idFactura = idFactura;
+    }
+
+    public boolean isReutilizacionPiezas() {
+        return reutilizacionPiezas;
+    }
+
+    public void setReutilizacionPiezas(boolean reutilizacionPiezas) {
+        this.reutilizacionPiezas = reutilizacionPiezas;
     }
     
     

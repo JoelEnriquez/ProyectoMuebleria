@@ -16,7 +16,6 @@
         <jsp:include page="../Extra/CSS.jsp"/>   
     </head>
     <body>
-        <%ValidarSesionVenta.validarSesion(request, response);}%>
         <jsp:include page="/NavBars/NavBarVenta.jsp"/>
 
         <div class="container">

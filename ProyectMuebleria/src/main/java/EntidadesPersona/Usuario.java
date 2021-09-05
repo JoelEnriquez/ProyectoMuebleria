@@ -14,11 +14,38 @@ public class Usuario {
     private String nombre;
     private int tipoUsuario;
     private String password;
+    private boolean revocado;
+
+    private String nombreTipoUsuario;
+    /**
+     * Para Query Get Users 1 & 2
+     * @param nombre
+     * @param tipoUsuario 
+     */
+    public Usuario(String nombre, int tipoUsuario) {
+        this.nombre = nombre;
+        this.tipoUsuario = tipoUsuario;
+    }
 
     public Usuario(String nombre, int tipoUsuario, String password) {
         this.nombre = nombre;
         this.tipoUsuario = tipoUsuario;
         this.password = password;
+    }
+
+    public Usuario(String nombre, int tipoUsuario, String password, boolean revocado) {
+        this.nombre = nombre;
+        this.tipoUsuario = tipoUsuario;
+        this.password = password;
+        this.revocado = revocado;
+    }
+
+    public boolean isRevocado() {
+        return revocado;
+    }
+
+    public void setRevocado(boolean revocado) {
+        this.revocado = revocado;
     }
 
     public String getNombre() {
@@ -43,6 +70,14 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNombreTipoUsuario() {
+        return nombreTipoUsuario;
+    }
+
+    public void setNombreTipoUsuario(String nombreTipoUsuario) {
+        this.nombreTipoUsuario = nombreTipoUsuario;
     }
     
     
