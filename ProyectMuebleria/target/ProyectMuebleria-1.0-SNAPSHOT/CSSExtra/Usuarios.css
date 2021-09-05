@@ -1,0 +1,12 @@
+
+.table-data {
+    text-align: center;
+    height: 750px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+h3,p,select,input, .table, .form-control {
+    text-align: center;
+}
+

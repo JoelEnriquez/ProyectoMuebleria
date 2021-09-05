@@ -50,8 +50,10 @@ ModeloVenta/ModeloNIT.class
 Lectura/LecturaPieza.class
 ModeloVenta/ModeloVenta.class
 ControladoresVenta/RealizarVenta.class
+ControladoresFinanciera/CreacionUsuario.class
 ControladoresFabrica/ConsultarInventario.class
 ModeloVenta/ValidarSesionVenta.class
 ModelosInicio/VerificarDatos.class
 Error/Error.class
+ModeloFinanciera/ModeloUsuario.class
 EntidadesMuebleria/AsignacionPrecio.class

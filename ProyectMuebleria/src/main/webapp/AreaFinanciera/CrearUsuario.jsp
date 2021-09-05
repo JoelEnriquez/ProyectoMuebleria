@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Creacion de Usuario</title>
-        <link rel="stylesheet" href="CSSExtra/VentasDelDia.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSSExtra/Usuarios.css"/>
         <jsp:include page="../Extra/CSS.jsp"/>   
     </head>
     <body>
@@ -21,10 +21,10 @@
         <jsp:include page="/NavBars/NavBarFinanciera.jsp"/>
 
         <div class="container">
-            <c:if test="${error!=null}"> <p class="alert alert-danger" style="text-align: center">${error}</p></c:if>
-            <c:if test="${success!=null}"> <p class="alert alert-success" style="text-align: center">Se ha creado el usuario correctamente</p></c:if>
+            <c:if test="${error!=null}"> <p class="alert alert-danger">${error}</p></c:if>
+            <c:if test="${success!=null}"> <p class="alert alert-success">Se ha creado el usuario correctamente</p></c:if>
             <div class="row justify-content-around mt-5">
-                <div class="col-9">
+                <div class="col-8">
                     <div class="row justify-content-first">
                         <div class="col-5 text-center">
                             <label for="inputFiltro">Busqueda por Filtro:</label>
@@ -37,72 +37,66 @@
                         <table class="table table-striped table-bordered mt-5">
                             <thead class="table-dark">
                                 <tr>
+                                    <th class="th-sm">#</th>
                                     <th class="th-sm">Nombre de Usuario</th>
                                     <th class="th-sm">Tipo de Usuario</th>
                                 </tr>
                             </thead>
                             <tbody id="tablaFiltro">
-                                <c:forEach items="${compras}" var="compra">
+                                <c:forEach items="${usuarios}" var="usuario">
                                     <tr>
-                                        <td>${compra.idFactura}</td>
-                                        <td>${compra.fechaCompra}</td>
+                                        <td>${usuario.numeroUsuario}</td>
+                                        <td>${usuario.nombre}</td>
+                                        <td>${usuario.nombreTipoUsuario}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Fecha de Compra</th>
-                                    <th>Precio</th>
-                                    <th>NIT del Cliente</th>
-                                    <th>Nombre Cliente</th>
-                                    <th>Direccion</th>
-                                    <th>Municipio</th>
-                                    <th>Departamento</th>
+                                    <th>#</th>
+                                    <th>Nombre de Usuario</th>
+                                    <th>Tipo de Usuario</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
-                <div class="col-3 align-self-center">
-                    <form action="${pageContext.request.contextPath}/RegistrarPiezas" method="POST">
-                        <h3 style="text-align: center">Agregar Stock</h3>
+                <div class="col-4 align-self-center">
+                    <form action="${pageContext.request.contextPath}/CreacionUsuario" method="POST">
+                        <h3 style=>Crear Usuario</h3>
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="inputNombrePieza">Tipo de Pieza</label>
-                            <select class="form-select" style="text-align: center" aria-label=".form-select-lg example" id="inputNombrePieza" name="pieza">
-                                <c:forEach items="${tipo_piezas}" var="nombre">   
-                                    <option value="${nombre}">${nombre}</option>
-                                </c:forEach>
+                            <!-- Lista de Tipos de Usuario Existentes -->
+                            <label class="input-group-text" for="inputTipoUsuario">Tipo de Usuario</label>
+                            <select class="form-select" aria-label=".form-select-lg example" id="inputTipoUsuario" name="tipo">
+                                <option value="1">Area Fabrica</option>
+                                <option value="2">Area Venta</option>
+                                <option value="3">Area Financiera y Admin</option>
                             </select>
                         </div>
                         <div class="input-group mb-3 justify-content-between">
-                            <label class="input-group-text" for="inputCantidad">Cantidad</label>
-                            <div class="col-sm-9">
-                                <input style="text-align: center" type="number" min="1" class="form-control" name="cantidad" id="inputCantidad" placeholder="Cantidad">
+                            <label class="input-group-text" for="inputNombre">Nombre</label>
+                            <div class="col">
+                                <input type="text" class="form-control" name="nombre" id="inputNombre" placeholder="Nombre de Usuario" required>
                             </div>
                         </div>
                         <div class="input-group mb-3 justify-content-between">
-                            <label class="input-group-text" for="inputPrecio">Precio</label>
-                            <div class="col-sm-9">
-                                <input style="text-align: center" type="number" min="0" class="form-control" name="precio" step="0.01" id="inputPrecio" placeholder="Precio">
+                            <label class="input-group-text" for="inputPassword">Password</label>
+                            <div class="col">
+                                <input type="text" class="form-control" name="password" id="inputPassword" placeholder="Contraseña" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12 offset-6">
-                                <button type="submit" class="btn btn-outline-info">Guardar</button>
+                                <button type="submit" class="btn btn-outline-success">Crear</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-
-
-
         </div>
+                        
         <jsp:include page="../Extra/JS.jsp"/>
-        <script src="${pageContext.request.contextPath}/JsExtra/FuncionFiltro"></script>
+        <script src="${pageContext.request.contextPath}/JSExtra/FuncionFiltro.js"></script>
 
     </body>
 </html>

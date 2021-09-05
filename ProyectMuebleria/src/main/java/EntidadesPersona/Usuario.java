@@ -17,16 +17,32 @@ public class Usuario {
     private boolean revocado;
 
     private String nombreTipoUsuario;
+    private int numeroUsuario;
+    
+    
     /**
-     * Para Query Get Users 1 & 2
+     * To show in jsp, to create or revoque permitions
+     * @param numeroUsuario
      * @param nombre
-     * @param tipoUsuario 
+     * @param nombreTipoUsuario 
      */
-    public Usuario(String nombre, int tipoUsuario) {
+    public Usuario(int numeroUsuario, String nombre, String nombreTipoUsuario) {
+        this.numeroUsuario = numeroUsuario;
         this.nombre = nombre;
-        this.tipoUsuario = tipoUsuario;
+        this.nombreTipoUsuario = nombreTipoUsuario;
     }
 
+    public Usuario(String nombre, String nombreTipoUsuario){
+        this.nombre = nombre;
+        this.nombreTipoUsuario = nombreTipoUsuario;
+    }
+
+    /**
+     * Insertar a la DB
+     * @param nombre
+     * @param tipoUsuario
+     * @param password 
+     */
     public Usuario(String nombre, int tipoUsuario, String password) {
         this.nombre = nombre;
         this.tipoUsuario = tipoUsuario;
@@ -78,6 +94,14 @@ public class Usuario {
 
     public void setNombreTipoUsuario(String nombreTipoUsuario) {
         this.nombreTipoUsuario = nombreTipoUsuario;
+    }
+
+    public int getNumeroUsuario() {
+        return numeroUsuario;
+    }
+
+    public void setNumeroUsuario(int numeroUsuario) {
+        this.numeroUsuario = numeroUsuario;
     }
     
     

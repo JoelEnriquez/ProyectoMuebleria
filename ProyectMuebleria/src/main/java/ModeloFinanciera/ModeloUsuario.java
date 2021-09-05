@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ModeloUsuario {
     
+    private final String queryTipoUsuarioPorNombre = "SELECT tipo FROM Usuario WHERE nombre = ?";
     private final String queryGetUsers = "SELECT nombre,tipo FROM Usuario";
     private final String queryGetUserVentaFabrica = queryGetUsers+" WHERE NOT tipo = 3";
     private final String queryRevocarUsuario = "UPDATE Usuario SET revocado = 1 WHERE nombre = ?";
@@ -63,10 +64,15 @@ public class ModeloUsuario {
      */
     public ArrayList<Usuario> getUsersSaleAndFabrica() {
         ArrayList<Usuario> getUsersSaleAndFabrica = new ArrayList<>();
+        int numResult = 0;
         try (PreparedStatement ps = conexion.prepareStatement(queryGetUserVentaFabrica);
                 ResultSet rs = ps.executeQuery()){
             while (rs.next()) {
-                getUsersSaleAndFabrica.add(new Usuario(rs.getString(1), rs.getInt(2)));
+                numResult++;
+                getUsersSaleAndFabrica.add(new Usuario(
+                        numResult,
+                        rs.getString(1),
+                        nombreTipoUsuarioPorTipo(rs.getInt(2))));
             }
             
         } catch (Exception e) {
@@ -76,14 +82,48 @@ public class ModeloUsuario {
     
     public ArrayList<Usuario> getUsers (){
         ArrayList<Usuario> listUsers = new ArrayList<>();
+        int numResult = 0;
         try (PreparedStatement ps = conexion.prepareStatement(queryGetUsers);
                 ResultSet rs = ps.executeQuery()){
             while (rs.next()) {
-                listUsers.add(new Usuario(rs.getString(1), rs.getInt(2)));
+                numResult++;
+                listUsers.add(new Usuario(
+                        numResult,
+                        rs.getString(1),
+                        nombreTipoUsuarioPorTipo(rs.getInt(2))));
             }
             
         } catch (Exception e) {
         }
         return listUsers;
+    }
+    
+    public int tipoUsuarioPorNombre(String nombreUsuario){
+        try (PreparedStatement ps = conexion.prepareStatement(queryTipoUsuarioPorNombre);
+                ResultSet rs = ps.executeQuery()){
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+    /**
+     * Devuelve el nombre de tipo de Usuario, en base a su numero
+     * @param tipoUsuario
+     * @return 
+     */
+    public String nombreTipoUsuarioPorTipo(int tipoUsuario){
+        switch (tipoUsuario) {
+            case 1:
+                return "Area de Fabrica";
+            case 2:
+                return "Area de Venta";
+            case 3:
+                return "Area Financiera y Administrativa";
+        }
+        return "";
     }
 }
