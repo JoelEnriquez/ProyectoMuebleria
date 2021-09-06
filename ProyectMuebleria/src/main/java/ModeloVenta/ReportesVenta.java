@@ -141,9 +141,10 @@ public class ReportesVenta {
         return devolucionesCliente;
     }
 
+    
     public ArrayList<DevolucionCliente> devolucionesClienteFiltroFecha(String NIT, LocalDate date1, LocalDate date2) {
         ArrayList<DevolucionCliente> devolucionesCliente = new ArrayList<>();
-        try ( PreparedStatement ps = conexion.prepareStatement(queryDevolucionesCliente + " AND (F.fecha_compra BETWEEN ? AND ?)")) {
+        try ( PreparedStatement ps = conexion.prepareStatement(queryDevolucionesCliente + " AND (DC.fecha_devolucion BETWEEN ? AND ?)")) {
             ps.setString(1, NIT);
             ps.setDate(2, java.sql.Date.valueOf(date1));
             ps.setDate(3, java.sql.Date.valueOf(date2));

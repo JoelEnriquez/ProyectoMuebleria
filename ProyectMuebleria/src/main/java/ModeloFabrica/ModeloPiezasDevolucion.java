@@ -7,13 +7,11 @@ package ModeloFabrica;
 
 import DBConnection.Conexion;
 import EntidadesFabrica.InfoDevolucion;
-import EntidadesMuebleria.EnsamblePieza;
 import EntidadesVenta.DetalleCompraNombres;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  *

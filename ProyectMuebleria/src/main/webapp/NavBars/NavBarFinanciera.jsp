@@ -24,28 +24,32 @@
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Cancelar Usuarios</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/RegistrarVenta?show=sale">Realizar Venta</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/AreaVenta/Devolucion.jsp">Area de Devoluciones</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Reportes Con Intervalo
+                        Reportes de Usuario
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AreaVenta/ComprasCliente.jsp">Consultas de compras de cliente</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AreaVenta/DevolucionesCliente.jsp">Consultas de devoluciones de cliente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Usuario que registra mas ventas</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Usuario que registra mas ganancias</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Reportes Sin Intervalo
+                        Reportes de Mueble
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarVenta?show=stock">Consulta de Muebles Disponibles en Sala de Venta</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VentasDia">Consultas de ventas del dia</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Mueble mas vendido</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Mueble menos vendido</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Reportes de Finanzas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Reporte de Ventas</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Reporte de Devoluciones</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Reporte de Ganancias</a></li>
                     </ul>
                 </li>
             </ul>

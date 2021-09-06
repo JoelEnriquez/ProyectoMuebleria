@@ -12,7 +12,6 @@ import ModeloVenta.ModeloVenta;
 import ModeloVenta.ReportesVenta;
 import ModeloVenta.ValidarSesionVenta;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
@@ -91,14 +90,9 @@ public class Devolucion extends HttpServlet {
                 //Verificar existencia id
                 if (modeloDevolucion.verificarExistenciaDetalleCompra(idDevolucion) == 0) {
                     request.setAttribute("error", "No existe un ensamble con dicho id");
-                } else {
-                    Double costoFactura = modeloVenta.getCostoTotalFactura(idFactura); //Costo de factura
-                    Double costoDetalle = modeloVenta.getCostoDetalleCompra(idDevolucion); //Costo de Mueble
-                     
+                } else {                     
                     //Set Precio 0 y devolucion true. Ademas, setear el nuevo precio
-                    modeloDevolucion.setDevolucionTrue(idDevolucion);
-                    modeloDevolucion.setPrecioVacio(idDevolucion);
-                    modeloDevolucion.setPrecioActualFactura(costoFactura-costoDetalle, idFactura);
+                    modeloDevolucion.setDevolucionTrueAndFecha(idDevolucion, java.sql.Date.valueOf(LocalDate.now()));
                     request.setAttribute("success", true);
                 }
             }

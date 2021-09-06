@@ -7,11 +7,9 @@ package ControladoresVenta;
 
 import EntidadesPersona.Cliente;
 import EntidadesVenta.DevolucionCliente;
-import EntidadesVenta.Factura;
 import ModeloVenta.ModeloNIT;
 import ModeloVenta.ReportesVenta;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
