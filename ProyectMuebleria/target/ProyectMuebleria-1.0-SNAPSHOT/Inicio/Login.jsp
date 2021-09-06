@@ -4,6 +4,7 @@
     Author     : joel
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,12 +14,8 @@
         <jsp:include page="/Extra/CSS.jsp"/>
     </head>
     <body>
-
-        <%if (request.getAttribute("fail") != null) {%>
-        <%if ((boolean) request.getAttribute("fail")) {%>
-        <p class="alert alert-danger">Usuario o Contraseña Incorrecto</p>   
-        <%}%>
-        <%}%>
+        
+        <c:if test="${fail!=null}"><p class="alert alert-danger" style="text-align: center">${fail}</p></c:if>
 
         <div class="container">
             <div class="row justify-content-center mt-5" >

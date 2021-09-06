@@ -11,8 +11,7 @@
                         Funciones Mueble
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RegistrarVenta?show=stock">Creacion de Mueble</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VentasDia">Indicar Receta</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionMueble">Creacion de Mueble</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VentasDia">Editar Mueble</a></li>
                     </ul>
                 </li>
@@ -22,7 +21,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Creacion Usuario</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VentasDia">Cancelar Usuarios</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Cancelar Usuarios</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

@@ -1,3 +1,4 @@
+ControladoresFinanciera/CreacionMueble.class
 EntidadesVenta/Factura.class
 EntidadesPersona/Usuario.class
 EntidadesFabrica/InfoDevolucion.class
@@ -13,6 +14,7 @@ ModeloFinanciera/ValidarSesionFinanciera.class
 EntidadesMuebleria/Pieza.class
 ModeloFabrica/ModeloPieza.class
 ControladoresFabrica/RegistrarPiezas.class
+ControladoresFinanciera/RestringirUsuario.class
 EntidadesVenta/DetalleCompra.class
 ModeloFabrica/ModeloLogicaEnsamble.class
 ControladoresFabrica/ControladorEnsambleMueble.class
@@ -31,6 +33,7 @@ ModeloFabrica/ValidarSesionFabrica.class
 ControladoresVenta/DevolucionesCliente.class
 DBConnection/Conexion.class
 Lectura/DatosLinea.class
+ControladoresFinanciera/EditarMueble.class
 Lectura/LecturaEnsamblePieza.class
 ControladoresVenta/RegistrarVenta.class
 ControladoresVenta/ComprasCliente.class
@@ -42,10 +45,12 @@ ModeloVenta/ModeloDevolucion.class
 Lectura/LecturaCliente.class
 ModeloFabrica/ModeloPiezasDevolucion.class
 ControladoresVenta/Devolucion.class
+ModeloFinanciera/ModeloConsultaMueble.class
 ModelosInicio/LoginModel.class
 ControladoresInicio/Login.class
 Encriptar/Encriptacion.class
 ControladoresInicio/ComprobarDatos.class
+ModeloFinanciera/ModeloCRUDMueble.class
 ModeloVenta/ModeloNIT.class
 Lectura/LecturaPieza.class
 ModeloVenta/ModeloVenta.class

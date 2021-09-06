@@ -21,7 +21,7 @@ public class ModeloUsuario {
     
     private final String queryTipoUsuarioPorNombre = "SELECT tipo FROM Usuario WHERE nombre = ?";
     private final String queryGetUsers = "SELECT nombre,tipo FROM Usuario";
-    private final String queryGetUserVentaFabrica = queryGetUsers+" WHERE NOT tipo = 3";
+    private final String queryGetUserVentaFabrica = queryGetUsers+" WHERE NOT tipo = 3 AND revocado = 0 OR isnull(revocado)";
     private final String queryRevocarUsuario = "UPDATE Usuario SET revocado = 1 WHERE nombre = ?";
     private final String queryInsertarUsuario = "INSERT INTO Usuario (nombre,tipo,password) VALUES (?,?,?)";
     private final Connection conexion = Conexion.getConexion();

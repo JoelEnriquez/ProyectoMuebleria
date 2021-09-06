@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends HttpServlet {
 
     private final Encriptacion encriptacion = new Encriptacion();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,28 +37,35 @@ public class Login extends HttpServlet {
         }
 
         LoginModel loginM = new LoginModel();
-        int tipoPersona = loginM.devolverTipoPersona(nombre, passwordEncrypt);
-        //Verificamos que tipo de usuario es y buscamos en la tabla respectiva
-        switch (tipoPersona) {
-            case 1:
-                request.getSession().setAttribute("nombre", nombre);
-                request.getSession().setAttribute("persona","Fabrica");
-                request.getRequestDispatcher("/AreaFabrica/InicioFabrica.jsp").forward(request, response);
-                break;
-            case 2:
-                request.getSession().setAttribute("nombre", nombre);
-                request.getSession().setAttribute("persona","Financiera");
-                request.getRequestDispatcher("/AreaFinanciera/InicioFinanciera.jsp").forward(request, response);
-                break;
-            case 3:
-                request.getSession().setAttribute("nombre", nombre);
-                request.getSession().setAttribute("persona","Venta");
-                request.getRequestDispatcher("/AreaVenta/InicioVenta.jsp").forward(request, response);
-                break;
-            case 0:
-                request.setAttribute("fail", true);
-                request.getRequestDispatcher("/Inicio/Login.jsp").forward(request, response);
-                break;
+        if (loginM.accesoRestringido(nombre, passwordEncrypt)) {
+            request.setAttribute("fail", "No tienes acceso al sistema");
+            request.getRequestDispatcher("/Inicio/Login.jsp").forward(request, response);
+        } else {
+
+            int tipoPersona = loginM.devolverTipoPersona(nombre, passwordEncrypt);
+            //Verificamos que tipo de usuario es y buscamos en la tabla respectiva
+            switch (tipoPersona) {
+                case 1:
+                    request.getSession().setAttribute("nombre", nombre);
+                    request.getSession().setAttribute("persona", "Fabrica");
+                    request.getRequestDispatcher("/AreaFabrica/InicioFabrica.jsp").forward(request, response);
+                    break;
+                case 2:
+                    request.getSession().setAttribute("nombre", nombre);
+                    request.getSession().setAttribute("persona", "Financiera");
+                    request.getRequestDispatcher("/AreaFinanciera/InicioFinanciera.jsp").forward(request, response);
+                    break;
+                case 3:
+                    request.getSession().setAttribute("nombre", nombre);
+                    request.getSession().setAttribute("persona", "Venta");
+                    request.getRequestDispatcher("/AreaVenta/InicioVenta.jsp").forward(request, response);
+                    break;
+                case 0:
+                    request.setAttribute("fail", "Usuario o Contraseña Incorrecto");
+                    request.getRequestDispatcher("/Inicio/Login.jsp").forward(request, response);
+                    break;
+            }
+
         }
     }
 

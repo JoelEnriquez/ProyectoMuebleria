@@ -13,12 +13,30 @@ public class EnsamblePieza {
     private String nombreMueble;
     private String nombrePieza;
     private int cantidadPieza;
+    
+    private int numeroEnsamble;
 
     public EnsamblePieza(String nombreMueble, String nombrePieza, int cantidadPieza) {
         this.nombreMueble = nombreMueble;
         this.nombrePieza = nombrePieza;
         this.cantidadPieza = cantidadPieza;
     }
+
+    /**
+     * Constructor to show in JSP
+     * @param nombreMueble
+     * @param nombrePieza
+     * @param cantidadPieza
+     * @param numeroEnsamble 
+     */
+    public EnsamblePieza(int numeroEnsamble,String nombreMueble, String nombrePieza, int cantidadPieza) {
+        this.nombreMueble = nombreMueble;
+        this.nombrePieza = nombrePieza;
+        this.cantidadPieza = cantidadPieza;
+        this.numeroEnsamble = numeroEnsamble;
+    }
+    
+    
 
     public String getNombreMueble() {
         return nombreMueble;
@@ -43,6 +61,15 @@ public class EnsamblePieza {
     public void setCantidadPieza(int cantidadPieza) {
         this.cantidadPieza = cantidadPieza;
     }
+
+    public int getNumeroEnsamble() {
+        return numeroEnsamble;
+    }
+
+    public void setNumeroEnsamble(int numeroEnsamble) {
+        this.numeroEnsamble = numeroEnsamble;
+    }
+    
     
     
 }
