@@ -52,10 +52,13 @@ public class ModeloNIT {
             ps.execute();
             
         } catch (SQLException e) {
-            if (e.getErrorCode()==1406){
-                throw new SQLException("Se excede en la cantidad de caracteres");
-            } else {
-                throw new SQLException("No se ha podido ingresar el Cliente");
+            switch (e.getErrorCode()) {
+                case 1406:
+                    throw new SQLException("Se excede en la cantidad de caracteres");
+                case 1062:
+                    throw new SQLException("Ya existe un cliente con ese NIT");
+                default:
+                    throw new SQLException("No se ha podido ingresar el Cliente");
             }
         }
     }

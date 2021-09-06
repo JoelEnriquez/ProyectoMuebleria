@@ -52,13 +52,13 @@ public class Login extends HttpServlet {
                     break;
                 case 2:
                     request.getSession().setAttribute("nombre", nombre);
-                    request.getSession().setAttribute("persona", "Financiera");
-                    request.getRequestDispatcher("/AreaFinanciera/InicioFinanciera.jsp").forward(request, response);
+                    request.getSession().setAttribute("persona", "Venta");
+                    request.getRequestDispatcher("/AreaVenta/InicioVenta.jsp").forward(request, response);
                     break;
                 case 3:
                     request.getSession().setAttribute("nombre", nombre);
-                    request.getSession().setAttribute("persona", "Venta");
-                    request.getRequestDispatcher("/AreaVenta/InicioVenta.jsp").forward(request, response);
+                    request.getSession().setAttribute("persona", "Financiera");
+                    request.getRequestDispatcher("/AreaFinanciera/InicioFinanciera.jsp").forward(request, response);
                     break;
                 case 0:
                     request.setAttribute("fail", "Usuario o Contraseña Incorrecto");

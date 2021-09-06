@@ -26,7 +26,7 @@ public class ModeloVenta {
     private final String queryGetPrecioFactura = "SELECT precio_compra FROM Factura WHERE id = ?";
     private final String queryGetPrecioDetalleCompra = "SELECT precio FROM Detalle_Compra WHERE id_ensamble = ?";
     private final String queryPrecioPorIdEnsamble = "SELECT M.precio FROM Mueble M INNER JOIN Ensamble_Mueble EM ON M.nombre = EM.nombre_mueble WHERE EM.id=?";
-    private final String queryAgregarDetalleCompra = "INSERT INTO Detalle_Compra VALUES (?,?,?,?,?)";
+    private final String queryAgregarDetalleCompra = "INSERT INTO Detalle_Compra (id_ensamble,precio,devolucion,reutilizacion_piezas,id_factura) VALUES (?,?,?,?,?)";
     private final String queryAgregarFactura = "INSERT INTO Factura (fecha_compra, precio_compra, NIT_Cliente,nombre_usuario) VALUES (?,?,?,?)";
     
     public Double costoCompra (ArrayList<StockEnsamble> carritoCompras){
