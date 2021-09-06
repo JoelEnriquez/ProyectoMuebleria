@@ -10,7 +10,6 @@ ControladoresVenta/ControladorNIT.class
 EntidadesMuebleria/EnsamblePieza.class
 EntidadesReporte/EntidadGanancia.class
 EntidadesReporte/EntidadDevolucion.class
-ModelosInicio/LecturaArchivo.class
 ControladoresFinanciera/ReporteMuebles.class
 ControladoresFabrica/ModificarPiezas.class
 Lectura/LecturaUsuario.class

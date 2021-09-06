@@ -20,7 +20,7 @@
         <% ValidarSesionFinanciera.validarSesion(request, response);%>
         <jsp:include page="/NavBars/NavBarFinanciera.jsp"/>
 
-        <div class="container">
+        <div class="container-fluid">
             <c:if test="${error!=null}"> <p class="alert alert-warning">${error}</p></c:if>
             <c:if test="${success!=null}"> <p class="alert alert-success">${success}</p></c:if>
                 <div class="row justify-content-around mt-5">
@@ -90,22 +90,87 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5">
-                    <div class="row justify-content-center border border-dark">
+                <div class="col-4">
+                    <div class="row justify-content-center border border-dark mb-5 p-3">
                         <div class="col datos_mueble">
                             <h6 class="display-6">Crear Mueble</h6>
                             <form method="POST" action="${pageContext.request.contextPath}/CreacionMueble">
-                                <input>
-                                <button/>
+                                <div class="input-group mb-3 justify-content-between">
+                                    <label class="input-group-text" for="inputNombre">Nombre</label>
+                                    <div class="col">
+                                        <input style="text-align: center" value="${mueble.nombre}" type="text" class="form-control" name="nombre" id="inputNombre" placeholder="Nombre de Mueble">
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3 justify-content-between">
+                                    <label class="input-group-text" for="inputPrecio">Precio</label>
+                                    <div class="col">
+                                        <input style="text-align: center" value="${mueble.precio}" type="number" min="0" step="0.01" class="form-control" name="precio" id="inputPrecio" placeholder="Precio">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col offset-5">
+                                        <button type="submit" class="btn btn-outline-info">Guardar</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
-                    <div class="row justify-content-center border border-dark">
+                    <div class="row justify-content-center border border-dark mb-5 p-3">
                         <div class="col-5">
                             <h6 class="display-6">Asignar Receta</h6>
+                            <fieldset>
+                                <form method="post" action="${pa}">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="inputNombrePieza">Tipo de Pieza</label>
+                                        <select class="form-select" style="text-align: center" aria-label=".form-select-lg example" id="inputNombrePieza" name="pieza">
+                                            <option value="${pieza.tipoPieza}" selected>${pieza.tipoPieza}</option>
+                                            <c:forEach items="${tipo_piezas}" var="nombre">   
+                                                <option value="${nombre}">${nombre}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3 justify-content-between">
+                                        <label class="input-group-text" for="inputPrecio">Precio</label>
+                                        <div class="col">
+                                            <input style="text-align: center" value="${pieza.precio}" type="number" min="0" class="form-control" name="cantidad" id="inputPrecio" placeholder="Cantidad">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 offset-3">
+                                            <button type="submit" class="btn btn-outline-info">Agregar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
                         </div>
                         <div class="col-7">
-                            
+                            <div class="table-data">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="th-sm">Tipo de Pieza</th>
+                                            <th class="th-sm">Numero piezas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaFiltro">
+                                        <c:forEach items="${receta_actual}" var="receta">
+                                            <tr>
+                                                <td>${receta.nombrePieza}</td>
+                                                <td>${receta.cantidadPieza}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Tipo de Pieza</th>
+                                            <th>Numero piezas</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a href="${pageContext.request.getContextPath}/CreacionMueble?crear=true" class="btn btn-success">Registrar Mueble</a>
                         </div>
                     </div>
                 </div>

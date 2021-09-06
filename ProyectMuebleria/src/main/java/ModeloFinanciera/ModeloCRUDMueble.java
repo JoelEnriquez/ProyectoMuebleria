@@ -15,4 +15,8 @@ import java.sql.Connection;
 public class ModeloCRUDMueble {
     
     private final Connection conexion = Conexion.getConexion();
+    
+    public void crearMueble(){
+        
+    }
 }
