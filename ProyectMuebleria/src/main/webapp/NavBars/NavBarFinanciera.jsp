@@ -47,9 +47,9 @@
                         Reportes de Finanzas
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Reporte de Ventas</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Reporte de Devoluciones</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Reporte de Ganancias</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ReporteVentasFinanciera">Reporte de Ventas</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ReporteDevolucionesFinanciera">Reporte de Devoluciones</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ReporteGanancias">Reporte de Ganancias</a></li>
                     </ul>
                 </li>
             </ul>

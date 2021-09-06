@@ -57,8 +57,8 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="inputNombrePieza">Tipo de Pieza</label>
                             <select class="form-select" style="text-align: center" aria-label=".form-select-lg example" id="inputNombrePieza" name="pieza">
-                                <c:forEach items="${tipo_piezas}" var="nombre">   
-                                    <option value="${nombre}">${nombre}</option>
+                                <c:forEach items="${tipo_piezas}" var="pieza">   
+                                    <option value="${pieza}">${pieza}</option>
                                 </c:forEach>
                             </select>
                         </div>
