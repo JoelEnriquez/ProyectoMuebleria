@@ -19,6 +19,7 @@ public class EntidadVentas {
     private String NITCliente;
     private String nombreMueble;
     private Double precioCompra;
+    private String nombreUsuario;
 
     public EntidadVentas(int idFactura, LocalDate fechaCompra, Double precioFactura, String NITCliente, String nombreMueble, Double precioCompra) {
         this.idFactura = idFactura;
@@ -29,7 +30,23 @@ public class EntidadVentas {
         this.precioCompra = precioCompra;
     }
 
-    
+    public EntidadVentas(int idFactura, LocalDate fechaCompra, Double precioFactura, String NITCliente, String nombreMueble, Double precioCompra, String nombreUsuario) {
+        this.idFactura = idFactura;
+        this.fechaCompra = fechaCompra;
+        this.precioFactura = precioFactura;
+        this.NITCliente = NITCliente;
+        this.nombreMueble = nombreMueble;
+        this.precioCompra = precioCompra;
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
     
     public int getIdFactura() {
         return idFactura;

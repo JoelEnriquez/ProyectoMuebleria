@@ -29,18 +29,12 @@
                         Reportes de Usuario
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Usuario que registra mas ventas</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Usuario que registra mas ganancias</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsuarioMayoresVentas">Usuario que registra mas ventas</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsuarioMayoresGanancias">Usuario que registra mas ganancias</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Reportes de Mueble
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/CreacionUsuario">Mueble mas vendido</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/RestringirUsuario">Mueble menos vendido</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/AreaFinanciera/ReporteMuebles.jsp">Reportes de Mueble</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

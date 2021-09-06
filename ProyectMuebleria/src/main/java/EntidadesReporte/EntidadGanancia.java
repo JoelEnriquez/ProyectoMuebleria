@@ -25,8 +25,9 @@ public class EntidadGanancia {
     
     private Double ingresoTotal;
     private Double gananciaTotal;
-
-    public EntidadGanancia(int idEnsamble, String nombreMueble, LocalDate fechaCompra, Double ingresosVenta, Double costoFabricacion, Double diferencia, Double perdidasDevolucion) {
+    private String nombreUsuario;
+    
+    public EntidadGanancia(int idEnsamble, String nombreMueble, LocalDate fechaCompra, Double ingresosVenta, Double costoFabricacion, Double diferencia, Double perdidasDevolucion, String nombreUsuario) {
         this.idEnsamble = idEnsamble;
         this.nombreMueble = nombreMueble;
         this.fechaCompra = fechaCompra;
@@ -34,6 +35,7 @@ public class EntidadGanancia {
         this.costoFabricacion = costoFabricacion;
         this.diferencia = diferencia;
         this.perdidasDevolucion = perdidasDevolucion;
+        this.nombreUsuario = nombreUsuario;
     }
 
     /**
@@ -141,6 +143,14 @@ public class EntidadGanancia {
 
     public void setGananciaTotal(Double gananciaTotal) {
         this.gananciaTotal = gananciaTotal;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
     
     

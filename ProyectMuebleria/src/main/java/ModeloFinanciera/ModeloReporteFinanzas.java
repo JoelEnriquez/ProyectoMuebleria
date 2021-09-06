@@ -23,7 +23,7 @@ public class ModeloReporteFinanzas {
 
     private final Connection conexion = Conexion.getConexion();
 
-    private final String gananciasQuery = "SELECT EM.id, EM.nombre_mueble,F.fecha_compra, DC.precio AS ingresos, (EM.precio_ensamble) AS costo, (DC.precio-EM.precio_ensamble) AS ganancia FROM Detalle_Compra DC INNER JOIN Ensamble_Mueble EM ON DC.id_ensamble=EM.id INNER JOIN Factura F ON DC.id_factura=F.id";
+    private final String gananciasQuery = "SELECT EM.id, EM.nombre_mueble,F.fecha_compra, DC.precio AS ingresos, (EM.precio_ensamble) AS costo, (DC.precio-EM.precio_ensamble) AS ganancia,F.nombre_usuario FROM Detalle_Compra DC INNER JOIN Ensamble_Mueble EM ON DC.id_ensamble=EM.id INNER JOIN Factura F ON DC.id_factura=F.id";
     private final String perdidasQuery = "select EM.id as id_ensamble, (EM.precio_ensamble/3) as perdida_devolucion, DC.fecha_devolucion FROM Detalle_Compra DC INNER JOIN Ensamble_Mueble EM ON DC.id_ensamble=EM.id WHERE DC.devolucion = 1";
     private final String gananciasFiltroQuery = gananciasQuery + " WHERE (F.fecha_compra BETWEEN ? AND ?)";
     private final String perdiasFiltroQuery = perdidasQuery + " AND (DC.fecha_devolucion BETWEEN ? AND ?)";
@@ -131,7 +131,8 @@ public class ModeloReporteFinanzas {
                         rs.getDouble(4),
                         rs.getDouble(5),
                         rs.getDouble(6),
-                        0.0));
+                        0.0,
+                        rs.getString(7)));
             }
         } catch (Exception e) {
         }
@@ -165,7 +166,8 @@ public class ModeloReporteFinanzas {
                             rs.getDouble(4),
                             rs.getDouble(5),
                             rs.getDouble(6),
-                            0.0));
+                            0.0,
+                            rs.getString(7)));
                 }
             }
 

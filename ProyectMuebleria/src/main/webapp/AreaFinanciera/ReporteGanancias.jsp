@@ -81,7 +81,7 @@
                     <div class="row">
                         <c:if test="${error!=null}"> <p class="alert alert-danger">${error}</p></c:if>
                         <form action="${pageContext.request.contextPath}/ReporteGanancias" method="POST">
-                            <h3>Ventas por Intervalo</h3>
+                            <h3>Ganancias por Intervalo</h3>
                             <div class="input-group mb-3 justify-content-around">
                                 <div class="col-auto">
                                     <label for="date1" class="col-form-label">Fecha 1:</label>

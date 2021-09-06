@@ -29,7 +29,7 @@ public class ModeloReporteMueble {
     public ArrayList<MuebleVenta> getMuebleMasVendido() {
         ArrayList<MuebleVenta> listaMuebles = new ArrayList<>();
         try ( PreparedStatement ps = conexion.prepareStatement(muebleMasVendido);  ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
+            while (rs.next()) {
                 listaMuebles.add(new MuebleVenta(
                         rs.getString(1),
                         rs.getDouble(2),
@@ -52,7 +52,7 @@ public class ModeloReporteMueble {
             ps.setDate(2, java.sql.Date.valueOf(fecha2));
 
             try ( ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     listaMuebles.add(new MuebleVenta(
                         rs.getString(1),
                         rs.getDouble(2),
@@ -72,7 +72,7 @@ public class ModeloReporteMueble {
     public ArrayList<MuebleVenta> getMuebleMenosVendido() {
         ArrayList<MuebleVenta> listaMuebles = new ArrayList<>();
         try ( PreparedStatement ps = conexion.prepareStatement(muebleMenosVendido);  ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
+            while (rs.next()) {
                 listaMuebles.add(new MuebleVenta(
                         rs.getString(1),
                         rs.getDouble(2),
@@ -95,7 +95,7 @@ public class ModeloReporteMueble {
             ps.setDate(2, java.sql.Date.valueOf(fecha2));
 
             try ( ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     listaMuebles.add(new MuebleVenta(
                         rs.getString(1),
                         rs.getDouble(2),

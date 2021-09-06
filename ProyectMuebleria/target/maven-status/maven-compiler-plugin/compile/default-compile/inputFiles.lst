@@ -1,6 +1,7 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/VentasDia.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/ControlLogOut.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/ComprasCliente.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloReporteMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloVenta/ValidarSesionVenta.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloReporteFinanzas.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFinanciera/ReporteVentasFinanciera.java
@@ -33,7 +34,9 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ValidarSesionFabrica.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaUsuario.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFabrica/ModeloMueble.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFinanciera/UsuarioMayoresGanancias.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloConsultaMueble.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesReporte/MuebleVenta.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloVenta/ReportesVenta.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesMuebleria/EnsambleMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModelosInicio/LecturaArchivo.java
@@ -56,11 +59,14 @@
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesVenta/FacturaCliente.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloCRUDMueble.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresInicio/CargaArchivo.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFinanciera/ReporteMuebles.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresVenta/RegistrarVenta.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloUsuario.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFabrica/ReutilizarPiezas.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFinanciera/UsuarioMayoresVentas.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesVenta/DevolucionCliente.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaEnsambleMueble.java
+/home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ModeloFinanciera/ModeloReporteUsuario.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/ControladoresFinanciera/CreacionUsuario.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/Lectura/LecturaPieza.java
 /home/joel/Documentos/IPC2/ProyectoMuebleria/ProyectMuebleria/src/main/java/EntidadesVenta/StockEnsamble.java

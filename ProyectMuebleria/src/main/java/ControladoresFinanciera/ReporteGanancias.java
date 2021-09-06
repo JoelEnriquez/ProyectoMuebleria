@@ -87,7 +87,7 @@ public class ReporteGanancias extends HttpServlet {
      * @param listaEgresos
      * @return 
      */
-    private ArrayList<EntidadGanancia> listaGanancias(ArrayList<EntidadGanancia> listaIngresos, ArrayList<EntidadGanancia> listaEgresos) {
+    public ArrayList<EntidadGanancia> listaGanancias(ArrayList<EntidadGanancia> listaIngresos, ArrayList<EntidadGanancia> listaEgresos) {
         for (EntidadGanancia listaIngreso : listaIngresos) {
             for (EntidadGanancia listaEgreso : listaEgresos) {
                 if (listaIngreso.getIdEnsamble() == listaEgreso.getIdEnsamble()) {
@@ -108,7 +108,7 @@ public class ReporteGanancias extends HttpServlet {
         return listaIngresos;
     }
 
-    private Double gananciaTotal(ArrayList<EntidadGanancia> listaGanancias) {
+    public Double gananciaTotal(ArrayList<EntidadGanancia> listaGanancias) {
         Double gananciaTotal = 0.0;
 
         for (EntidadGanancia listaGanancia : listaGanancias) {
@@ -118,7 +118,7 @@ public class ReporteGanancias extends HttpServlet {
         return gananciaTotal;
     }
 
-    private Double ingresoTotal(ArrayList<EntidadGanancia> listaGanancias) {
+    public Double ingresoTotal(ArrayList<EntidadGanancia> listaGanancias) {
         Double ingresoTotal = 0.0;
 
         for (EntidadGanancia listaGanancia : listaGanancias) {
